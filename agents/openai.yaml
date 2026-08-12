@@ -1,4 +1,7 @@
 interface:
   display_name: "Narrative Tutor"
-  short_description: "用具体问题、认知冲突、证据与边界组织清晰的跨领域教学讲解"
-  default_prompt: "Use $narrative-tutor to teach this topic from a concrete problem, updating one mental model at a time and stating evidence and limits."
+  short_description: "主动把解释请求组织成循序推进、直觉与严谨兼具的教学"
+  default_prompt: "Use $narrative-tutor to help me genuinely understand this topic through one concrete target and a step-by-step update of my mental model."
+
+policy:
+  allow_implicit_invocation: true
