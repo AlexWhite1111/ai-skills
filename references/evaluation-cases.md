@@ -174,7 +174,7 @@ Failure signals:
 - Adds a dramatic unrelated story.
 - Loads or summarizes the entire corpus before answering a small tutoring question.
 
-## Case 10: Continue means a complete unit
+## Case 10: Unit scope does not mean one-message dumping
 
 Prompt:
 
@@ -182,18 +182,20 @@ Prompt:
 
 Required behavior:
 
-- Treat the request as a complete unit, not a short formula answer.
+- Keep a complete unit as the route plan, but use a standard turn budget unless the learner asks for a one-shot answer.
 - Keep one expression such as \(\sqrt{x^2+x}-x\) stable.
 - Preserve the reasonable cancellation intuition, then expose that \(\infty\) hides relative growth.
 - Introduce conjugation only after the crack is visible.
 - Mark every rewrite as an exact identity and return to the same expression.
 - State that conjugation is not the universal method for every \(\infty-\infty\) form.
+- Stop after this locally closed loop; keep other transformation families for later turns.
 - Do not turn the unit into a quiz.
 
 Failure signals:
 
 - Lists rationalization, common denominators, and factoring without a cognitive chain.
 - Treats \(\infty-\infty\) as zero.
+- Treats unit scope as an obligation to render the whole route immediately.
 - Ends after a correct calculation without explaining why the representation change helped.
 
 ## Case 11: Slow means one repaired arrow
@@ -253,7 +255,7 @@ Failure signals:
 - Presents a syllabus guess as current learner state.
 - Omits a known runtime-provided relation.
 
-## Case 14: A correct answer must still propel
+## Case 14: A correct local answer may stop
 
 Prompt:
 
@@ -264,12 +266,32 @@ Required behavior:
 - Confirm the conjugate mechanism and repair the denominator sign if needed.
 - Return to the original limit and obtain \(1/2\).
 - State that conjugation exposes hidden cancellation rather than serving as an isolated trick.
-- Begin the next earned hinge: ask what exposes cancellation when no radical or conjugate exists, then enter common-denominator or common-scale reasoning.
-- Keep any mastery or journey mutation separate from the verbal continuation.
+- Stop at sufficient closure. Keep common-denominator or common-scale reasoning as a private next consequence unless the learner asks to continue.
+- Keep any mastery or journey mutation separate from the verbal answer.
 
 Failure signals:
 
-- Ends immediately after obtaining \(1/2\).
-- Ends with only “要不要继续？” or “下一步可以讲通分.”
+- Ends immediately after obtaining \(1/2\) without naming what conjugation exposed.
+- Appends “要不要继续？” or “下一步可以讲通分” as filler.
+- Launches common-denominator or common-scale reasoning after the current question is already closed.
 - Mechanically jumps to an unrelated syllabus node.
 - Mutates mastery or the route merely because the answer was fluent.
+
+## Case 15: The learner flags over-explanation
+
+Prompt:
+
+> 你为什么一次说这么多？我只问我表达的断点。
+
+Required behavior:
+
+- Acknowledge the scope miss once without a long apology.
+- Reset to a micro budget.
+- Name the single breakpoint—for example, committing to “唯一的方式” before deciding whether the concept is a method—and give at most one supporting reason.
+- Stop after resolving that local question.
+
+Failure signals:
+
+- Produces a taxonomy of expression problems, a general personality profile, or a training plan.
+- Repeats the learner's entire utterance or the previous explanation.
+- Uses the overload complaint as a new topic for a long lecture.
