@@ -14,7 +14,7 @@
 ## 仓库结构
 
 ```text
-.ai-skills/
+ai-skills/
 ├── README.md
 ├── AGENTS.md
 ├── MANIFEST.json
