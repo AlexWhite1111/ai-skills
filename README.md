@@ -1,54 +1,73 @@
-# Narrative Tutor Skill
+# AI Skills
 
-一个用于数学、科学、工程、人文与其他复杂主题讲解的可复用 Skill。
+这是一个面向 Codex 和其他支持 Skills 的 AI Agent 的公开能力库。每个 Skill 都是一套可独立安装、调用、评测和演进的工作协议，不保存个人状态，也不与某个具体软件项目绑定。
 
-它不是“最佳讲解法”的宣言，而是把一套正在使用和迭代的方法公开出来：从学习者当前的理解出发，让旧模型先做一次真实预测，找到最关键的缺口，再引入刚好能修复它的新工具，并立刻回到同一个对象检验。
+## 当前 Skills
 
-## 核心思路
+| Skill | 调用名 | 作用 |
+|---|---|---|
+| [Narrative Tutor](.agents/skills/narrative-tutor/README.zh-CN.md) | `$narrative-tutor` | 从学习者当前模型出发，用具体对象、认知缺口、必要工具和边界组织复杂概念讲解。 |
+| [Research Orchestrator](.agents/skills/research-orchestrator/README.zh-CN.md) | `$research-orchestrator` | 对困难证明、数学物理建模、因果研究、工程设计和复杂排障进行多路线搜索与敌对审计。 |
 
-- 保持一个具体对象稳定，让解释逐步变强。
-- 尊重学习者当前模型中合理的部分，再精确修复关键缺口。
-- 让公式、抽象和证据在“它为什么此刻必要”之后出现。
-- 区分直觉、类比、经验模型、数值证据、形式证明与开放问题。
-- 回答当前问题后，由结果自然推动下一步，而不是机械追问“要不要继续”。
+个人学习状态、掌握度、复习计划和多设备同步不放在这里。它们由独立的私有 [`LearningOS`](https://github.com/AlexWhite1111/LearningOS) 仓库及其 `learningos-manager` Skill 管理。
 
-完整规则见 [`SKILL.md`](SKILL.md)。
+## 仓库结构
 
-## 使用方式
-
-### Codex / 支持 Skills 的 Agent
-
-将整个仓库克隆或复制到个人 skills 目录，例如：
-
-```bash
-git clone https://github.com/AlexWhite1111/narrative-tutor-skill.git ~/.codex/skills/narrative-tutor
+```text
+.ai-skills/
+├── README.md
+├── AGENTS.md
+├── MANIFEST.json
+└── .agents/
+    └── skills/
+        ├── narrative-tutor/
+        │   ├── SKILL.md
+        │   ├── agents/
+        │   ├── references/
+        │   └── scripts/
+        └── research-orchestrator/
+            ├── SKILL.md
+            ├── agents/
+            ├── assets/
+            └── references/
 ```
 
-之后在讲解任务中调用 `$narrative-tutor`，或让 Agent 根据 Skill 的描述自动触发。
+每个 Skill 的 `SKILL.md` 是入口。它引用的脚本、模板和参考资料应保留在同一个 Skill 目录内，避免依赖仓库外的隐式文件。
 
-### 其他 AI 助手
+## 安装
 
-可以把 `SKILL.md` 作为自定义指令或系统提示的参考，但不同产品对 Skill、工具调用和上下文的支持并不相同，需要按实际环境裁剪。
-
-## 可选参考语料检索
-
-仓库包含 `scripts/retrieve_corpus.py`，用于从你自己合法持有的参考语料中，按叙事功能检索少量窗口。参考语料本身不包含在仓库中，也不是 Skill 正常运行的必需条件。
+克隆本仓库：
 
 ```bash
-export VERITASIUM_CORPUS=/path/to/your/reference-corpus
-python3 scripts/retrieve_corpus.py --move crack --limit 4
+git clone <this-repository-url> ai-skills
 ```
 
-也可以直接传入 `--corpus /path/to/corpus`。若没有外部语料，使用 `references/` 中的提炼模式即可。
+安装全部 Skills：
 
-## 一起改进
+```bash
+mkdir -p ~/.codex/skills
+cp -R ai-skills/.agents/skills/narrative-tutor ~/.codex/skills/
+cp -R ai-skills/.agents/skills/research-orchestrator ~/.codex/skills/
+```
 
-欢迎通过 Issue 分享：
+也可以只复制需要的一个目录。更新时重新拉取仓库，再覆盖对应 Skill 目录即可。
 
-- 哪种讲解仍然跳步、太抽象或工作记忆负担过重；
-- 哪个领域不适合当前的“模型修复”结构；
-- 哪条规则在真实对话中产生了副作用；
-- 可独立判断的对照案例与改进建议。
+## 调用示例
 
-也欢迎提交 Pull Request。这里更关心可验证的讲解效果和明确边界，而不是把某一种风格包装成唯一答案。
+```text
+使用 $narrative-tutor 给我讲清楚这个概念。保持一个具体对象稳定，先修复我当前理解里最关键的缺口。
+```
 
+```text
+使用 $research-orchestrator 研究这个问题。隔离观察、假设、假说和验证，维持真正不同的路线，并在接受候选结果前进行敌对审计。
+```
+
+## 设计边界
+
+- Skill 负责可复用的思考与工作方法。
+- 项目仓库中的 `AGENTS.md` 负责该项目的施工规则。
+- CLI、MCP 和其他工具接口负责执行真实操作。
+- 个人状态、公司资料、密钥、客户数据和私有语料不得进入本公开仓库。
+- 同一模型的多次赞同不等于独立验证，有限计算也不自动构成普适证明。
+
+维护规则见 [`AGENTS.md`](AGENTS.md)，机器可读索引见 [`MANIFEST.json`](MANIFEST.json)。
