@@ -1,0 +1,34 @@
+{
+  "name": "ai-skills",
+  "version": "1.0.0",
+  "repository_role": "public reusable AI capability library",
+  "skills_root": ".agents/skills",
+  "skills": [
+    {
+      "name": "narrative-tutor",
+      "entry": ".agents/skills/narrative-tutor/SKILL.md",
+      "agent_metadata": ".agents/skills/narrative-tutor/agents/openai.yaml",
+      "purpose": "Teach complex topics by repairing one learner mental model at a time."
+    },
+    {
+      "name": "research-orchestrator",
+      "entry": ".agents/skills/research-orchestrator/SKILL.md",
+      "agent_metadata": ".agents/skills/research-orchestrator/agents/openai.yaml",
+      "purpose": "Run diverse research routes, explicit gap tracking, falsification, and adversarial audit."
+    }
+  ],
+  "excluded_domains": [
+    "personal learning state",
+    "private source material",
+    "product-specific instructions",
+    "secrets and credentials"
+  ],
+  "external_systems": [
+    {
+      "name": "LearningOS",
+      "repository": "AlexWhite1111/LearningOS",
+      "role": "private personal learning-state backend",
+      "entry_skill": ".agents/skills/learningos-manager/SKILL.md"
+    }
+  ]
+}

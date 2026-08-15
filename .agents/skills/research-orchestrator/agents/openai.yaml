@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Orchestrator"
+  short_description: "Run diverse, adversarial research search"
+  default_prompt: "Use $research-orchestrator to investigate this problem. Compress the target first, isolate observations from assumptions and hypotheses, maintain genuinely different route families, block fake progress, and adversarially audit any candidate before accepting it."
