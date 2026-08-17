@@ -1,6 +1,6 @@
 {
   "name": "ai-skills",
-  "version": "1.1.0",
+  "version": "1.2.0-v2-branch",
   "repository_role": "public reusable AI capability library",
   "skills_root": ".agents/skills",
   "skills": [
@@ -14,7 +14,7 @@
       "name": "learning-novel-engine",
       "entry": ".agents/skills/learning-novel-engine/SKILL.md",
       "agent_metadata": ".agents/skills/learning-novel-engine/agents/openai.yaml",
-      "purpose": "Build long-form learning fiction that jointly maintains narrative quality, knowledge prerequisites, expected reader state, technical grounding, continuity, and adversarial review."
+      "purpose": "Build long-form learning fiction through double-causal scene generation, character-specific prose, knowledge prerequisites, expected reader evidence, visual and source provenance, continuity, isolated audits, and blind baseline evaluation."
     },
     {
       "name": "research-orchestrator",
