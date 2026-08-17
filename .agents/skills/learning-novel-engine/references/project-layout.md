@@ -1,34 +1,52 @@
-# Reference project layout
+# Reference Project Layout
 
-This layout is a portable default for long-form learning-fiction projects. It is deliberately small enough to maintain manually and explicit enough for deterministic checks.
+Use a small, explicit project state. Add files only when they carry durable information.
+
+## Contents
+
+- [`LEARNING_NOVEL.md`](#learning_novelmd)
+- [`knowledge/concepts.json`](#knowledgeconceptsjson)
+- [`tracking/reader-state.json`](#trackingreader-statejson)
+- [`tracking/retrieval-plan.json`](#trackingretrieval-planjson)
+- [`tracking/continuity.json`](#trackingcontinuityjson)
+- [`story/bible.md`](#storybiblemd)
+- [`story/voice.md`](#storyvoicemd)
+- [`outline/arc.md`](#outlinearcmd)
+- [Chapter hypothesis](#chapter-hypothesis)
+- [`research/claim-ledger.md`](#researchclaim-ledgermd)
+- [`visuals/figure-ledger.json`](#visualsfigure-ledgerjson)
+- [Update order](#update-order)
 
 ```text
 learning-novel-project/
 ├── LEARNING_NOVEL.md
 ├── story/
-│   └── bible.md
+│   ├── bible.md
+│   └── voice.md                     # recommended
 ├── knowledge/
 │   └── concepts.json
 ├── outline/
-│   └── arc.md
+│   ├── arc.md
+│   └── chapter-hypotheses/          # optional
 ├── tracking/
 │   ├── reader-state.json
-│   └── continuity.json
+│   ├── continuity.json
+│   └── retrieval-plan.json          # optional
 ├── research/
-│   └── claim-ledger.md          # optional but recommended for factual subjects
+│   └── claim-ledger.md              # recommended for factual subjects
+├── visuals/
+│   └── figure-ledger.json           # optional, recommended when visuals matter
 └── chapters/
     ├── 001.md
     ├── 002.md
     └── ...
 ```
 
-The project may add files freely. The validator only treats the core files above as its contract.
+The validator requires the original core files and accepts the optional V2 files. Existing V1 projects remain valid.
 
 ## `LEARNING_NOVEL.md`
 
 Record the book contract, not chapter prose.
-
-Recommended fields:
 
 ```markdown
 # Book contract
@@ -42,6 +60,7 @@ Recommended fields:
 - Forbidden assumptions:
 - Technical rigor:
 - Source policy:
+- Visual/data policy:
 
 ## Story promise
 - Genre:
@@ -50,10 +69,18 @@ Recommended fields:
 - Central dramatic question:
 - Approximate scale:
 
+## Evaluation
+- Baselines:
+- Hard validity gates:
+- Target reader preference test:
+- Transfer task:
+
 ## Design constraints
-- What must never become a lecture:
-- What can be simplified:
+- Forbidden story shortcuts:
+- What may be simplified:
 - What requires explicit uncertainty:
+- Hard constraints:
+- Soft hypotheses:
 ```
 
 ## `knowledge/concepts.json`
@@ -62,17 +89,29 @@ Use stable ids. Do not encode chapter order into an id.
 
 ```json
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "concepts": [
     {
       "id": "ofdm.orthogonality",
       "name": "OFDM subcarrier orthogonality",
-      "prerequisites": ["signals.inner-product", "complex.phasor"],
-      "target_capability": "Explain why overlapping OFDM subcarriers remain separable over the intended observation interval and predict what breaks the condition.",
+      "prerequisites": [
+        "signals.inner-product",
+        "complex.phasor"
+      ],
+      "target_capability": "Explain why overlapping OFDM subcarriers remain separable over an aligned observation interval and predict what breaks the condition.",
       "common_failure_modes": [
-        "equating orthogonality with different frequencies in every circumstance",
+        "equating orthogonality with merely having different frequencies",
         "believing spectral overlap implies interference by itself"
-      ]
+      ],
+      "evidence_dimensions": [
+        "prediction",
+        "representation_mapping",
+        "discrimination",
+        "explanation"
+      ],
+      "delayed_return": "Diagnose loss of orthogonality after a timing or frequency offset.",
+      "transfer_challenge": "Apply the projection logic to a different orthogonal basis.",
+      "source_status": "verified"
     }
   ]
 }
@@ -80,17 +119,56 @@ Use stable ids. Do not encode chapter order into an id.
 
 Rules:
 
-- Every `id` is unique.
-- Every prerequisite refers to another declared concept.
-- The prerequisite graph must be acyclic.
-- A prerequisite means “needed to use this concept as written,” not “mentioned earlier in a textbook.”
-- `target_capability` should be observable enough to audit in prose.
+- every id is unique;
+- every prerequisite is declared;
+- the prerequisite graph is acyclic;
+- target capability is observable;
+- source status is explicit when factual rigor matters;
+- delayed return and transfer are plans, not claims of success.
 
 ## `tracking/reader-state.json`
 
-This is an expected manuscript state, not a real person's measured mastery.
+This is expected manuscript evidence, not a real learner record.
 
-Allowed states:
+```json
+{
+  "schema_version": 2,
+  "concepts": {
+    "ofdm.orthogonality": {
+      "state": "operational",
+      "last_chapter": 4,
+      "evidence_vector": {
+        "recognition": "supported",
+        "prediction": "supported",
+        "representation_mapping": "opportunity",
+        "operation": "supported",
+        "discrimination": "opportunity",
+        "explanation": "supported",
+        "delayed_retrieval": "none",
+        "transfer": "none"
+      },
+      "evidence": [
+        "Chapter 4 asks the reader to predict the effect of shifting the projection window.",
+        "The character uses that prediction to reverse an incorrect receiver change."
+      ],
+      "next_return": {
+        "chapter_range": "7-9",
+        "action": "distinguish timing offset from carrier-frequency offset"
+      }
+    }
+  },
+  "debts": [
+    {
+      "id": "debt.cfo-vs-phase",
+      "kind": "pedagogy",
+      "note": "The manuscript has not yet separated common phase rotation from inter-carrier interference.",
+      "opened_chapter": 4
+    }
+  ]
+}
+```
+
+Allowed summary states:
 
 ```text
 unseen
@@ -101,62 +179,80 @@ formal
 transfer-ready
 ```
 
-Example:
+Allowed evidence values:
+
+```text
+none
+opportunity
+supported
+```
+
+The summary state must be conservative relative to the evidence vector.
+
+## `tracking/retrieval-plan.json`
+
+Optional.
 
 ```json
 {
-  "schema_version": 1,
-  "concepts": {
-    "ofdm.orthogonality": {
-      "state": "operational",
-      "last_chapter": 7,
-      "evidence": [
-        "Chapter 7 uses the inner-product view to predict which subcarrier terms vanish over the symbol interval."
-      ]
-    }
-  },
-  "debts": [
+  "schema_version": 2,
+  "returns": [
     {
-      "id": "debt.cfo-vs-phase",
-      "kind": "pedagogy",
-      "note": "The manuscript has not yet separated common phase rotation from ICI caused by carrier-frequency offset.",
-      "opened_chapter": 7
+      "id": "return.ofdm-orthogonality-1",
+      "concept_id": "ofdm.orthogonality",
+      "after_chapter": 4,
+      "target_range": [7, 9],
+      "cognitive_action": "discrimination",
+      "new_context": "timing and carrier-frequency errors",
+      "status": "planned"
     }
   ]
 }
 ```
 
-State semantics:
+Statuses:
 
-- `unseen`: not introduced.
-- `exposed`: named or encountered, but not meaningfully modeled.
-- `intuitive`: the manuscript has built a stable qualitative model and its boundary.
-- `operational`: the manuscript has shown the concept being used to predict, calculate, diagnose, compare, or decide.
-- `formal`: notation, equations, definitions, or proof structure required by the book have been licensed.
-- `transfer-ready`: the manuscript has exercised the idea in a materially different context rather than repeating the same example.
+```text
+planned
+drafted
+completed
+retired
+```
 
-Do not advance state because a narrator claims understanding.
+A return should add a new cognitive action, boundary, or context.
 
 ## `tracking/continuity.json`
 
-Keep canonical state compact. Large prose summaries become stale.
+Keep canonical state compact.
 
 ```json
 {
-  "schema_version": 1,
-  "current_chapter": 7,
+  "schema_version": 2,
+  "current_chapter": 4,
   "characters": {
-    "lin": {
+    "ming": {
       "location": "lab-a",
-      "knows": ["ofdm.cp-purpose"],
-      "does_not_know": ["ofdm.cfo-ici"],
-      "open_goals": ["identify the source of the rotating constellation"]
+      "knows": [
+        "ofdm.symbol-structure"
+      ],
+      "believes": [
+        "spectral overlap is the main source of interference"
+      ],
+      "does_not_know": [
+        "ofdm.cfo-effects"
+      ],
+      "open_goals": [
+        "repair the receiver before the demo"
+      ],
+      "behavioral_evidence": [
+        "narrows filters when uncertain because physical separation feels safer"
+      ]
     }
   },
   "facts": [
     {
       "id": "fact.rx-clock-drift",
-      "established_chapter": 5,
+      "established_chapter": 3,
       "status": "active",
       "text": "The receiver reference clock is slightly offset from the transmitter reference."
     }
@@ -164,7 +260,7 @@ Keep canonical state compact. Large prose summaries become stale.
   "promises": [
     {
       "id": "promise.hidden-second-path",
-      "opened_chapter": 4,
+      "opened_chapter": 2,
       "status": "open",
       "text": "A delayed replica appears only when the metal door is closed."
     }
@@ -172,69 +268,88 @@ Keep canonical state compact. Large prose summaries become stale.
 }
 ```
 
-A character's `knows` field concerns in-world character knowledge. Reader-state concerns what the manuscript has prepared the reader to use. They are not the same ledger.
+Character knowledge and reader evidence are separate ledgers.
 
 ## `story/bible.md`
 
-Keep durable story constraints:
+Track durable story constraints:
 
 - setting and world rules;
 - central conflict;
-- character motivations, competencies, blind spots, and relationships;
-- technology or institutions that are fictional;
-- voice and point-of-view constraints;
-- forbidden shortcuts, such as “mentor explains everything.”
+- character wants, fears, competencies, blind spots, and relationships;
+- fictional technologies and institutions;
+- forbidden shortcuts;
+- long-range arcs.
 
-Do not copy transient chapter recaps here.
+Do not store transient chapter recaps here.
+
+## `story/voice.md`
+
+Recommended for prose consistency.
+
+For each viewpoint or narrator, record:
+
+```text
+point of view and tense
+psychic-distance range
+attention bias
+sentence and paragraph tendencies
+lexical register
+metaphor sources
+humor and deflection
+stress deformation
+forbidden generic patterns
+short representative passages from accepted prose
+```
+
+Use accepted project prose, not imitation of a living author.
 
 ## `outline/arc.md`
 
-For each arc or chapter, pair a dramatic turn with a learning turn.
+Pair dramatic and learning pressure.
 
-Useful table:
+| Unit | Dramatic pressure | Knowledge pressure | Decision hinge | New capability | Consequence | Promise |
+|---|---|---|---|---|---|---|
+| Ch. 4 | Receiver fails before demo | overlap model predicts the wrong fix | restore bandwidth and retime, or keep filtering | explain orthogonality over the observation interval | constellation tightens but rotates | opens frequency-offset investigation |
 
-| Unit | Story pressure | Knowledge pressure | New capability | Cost / consequence | Promise opened or closed |
-|---|---|---|---|---|---|
-| Ch. 7 | Prototype fails during demo | constellation rotates despite correct symbol timing | distinguish phase rotation from other error classes | team loses confidence in current diagnosis | opens CFO investigation |
+If either pressure column remains empty across several units, the two engines are drifting apart.
 
-If either the story-pressure or knowledge-pressure column is empty for many consecutive units, the two engines are drifting apart.
+Treat the outline as a hypothesis. Record major changes instead of forcing finished prose to obey stale plans.
 
-## Chapter contract
+## Chapter hypothesis
 
-Recommended chapter files use light frontmatter followed by prose:
+Use light frontmatter or a sidecar file:
 
 ```markdown
 ---
-chapter: 7
-story_job: "Turn a successful lab test into a public failure that forces a better synchronization model."
-knowledge_job: "Make the reader operationally distinguish a common phase rotation from subcarrier mixing."
-entry_reader_model:
+chapter: 4
+story_job: "Turn a plausible receiver fix into a public failure."
+knowledge_job: "Make orthogonality depend on the projection interval rather than visual frequency separation."
+entry_reader_evidence:
+  - "signals.inner-product: intuitive"
   - "ofdm.symbol-structure: operational"
-  - "complex.phase: intuitive"
-new_concepts:
-  - "ofdm.cfo-effects"
-exit_capability: "Given a constellation symptom, state which observations would separate a common phase rotation from ICI."
-open_promises:
-  - "promise.clock-source"
+dramatic_pressure: "Morning demo and team distrust"
+current_model: "Spectral overlap itself causes interference"
+commitment: "Narrow the receive filter"
+observable_evidence: "Power falls while packet errors rise"
+decision_hinge: "Restore bandwidth and repair symbol timing"
+exit_capability: "Predict how window misalignment breaks subcarrier separation"
+consequence: "Technical partial success and a new synchronization dispute"
+visuals:
+  - "fig.filter-before-after"
 ---
-
-# Chapter 7
-
-[prose]
 ```
 
-The frontmatter is for planning and audit. It must not become an excuse to write prose that merely restates the plan.
+The contract guides generation. It must not appear as summary-shaped prose.
 
 ## `research/claim-ledger.md`
 
-For fact-heavy works, maintain claims separately from the fictional narrative.
-
 Recommended columns:
 
-| Claim id | Claim | Status | Source / verification | Scope / assumptions | Used in chapters |
-|---|---|---|---|---|---|
+| Claim id | Claim | Type | Status | Source or verification | Scope | Used in chapters |
+|---|---|---|---|---|---|---|
 
-Useful statuses:
+Statuses:
 
 ```text
 verified
@@ -244,20 +359,49 @@ fictional
 needs-check
 ```
 
-A fictional character may utter a wrong claim. The ledger should still know whether the manuscript treats it as wrong, unresolved, or canonical.
+Keep character belief separate from authorial fact.
 
-## Update order after a chapter
+## `visuals/figure-ledger.json`
 
-Use this order to avoid canonizing a bad draft:
+Optional.
 
-1. draft prose;
-2. technical and pedagogy audit;
-3. continuity and story audit;
-4. first-time reader simulation;
-5. revision and editorial synthesis;
-6. user or project acceptance when required;
-7. update `continuity.json` and `reader-state.json`;
-8. update claim ledger and outline consequences;
-9. run deterministic validator if available.
+```json
+{
+  "schema_version": 2,
+  "figures": [
+    {
+      "id": "fig.filter-before-after",
+      "chapter": 4,
+      "kind": "evidence",
+      "provenance": "derived from real data",
+      "source": "droneid.dat samples 3901000:3962440",
+      "processing": [
+        "float32 interleaved I/Q",
+        "FFT length 4096",
+        "Hann window",
+        "magnitude normalized to peak"
+      ],
+      "question": "Did narrowing the filter improve separability?",
+      "supported_inference": "The change reduced power but increased packet error.",
+      "unsupported_inference": "The plot alone does not identify the exact synchronization error."
+    }
+  ]
+}
+```
 
-The chronicler is last on purpose.
+## Update order
+
+After a chapter:
+
+1. draft from chapter hypothesis and scene packets;
+2. technical, pedagogy, story, character, visual, and continuity audits as relevant;
+3. blind first-time reader simulation;
+4. revision and editorial synthesis;
+5. user or project acceptance when required;
+6. update continuity;
+7. update expected reader evidence and retrieval plan;
+8. update claim and figure ledgers;
+9. update outline consequences;
+10. run deterministic validation.
+
+The chronicler remains last on purpose.
