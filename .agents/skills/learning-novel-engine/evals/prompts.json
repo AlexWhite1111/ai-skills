@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "description": "Starter evaluation set for Learning Novel Engine. Preserve source packages and run identical briefs across conditions.",
+  "cases": [
+    {
+      "id": "ofdm-new-book",
+      "task_family": "architect_and_draft",
+      "prompt": "Design a long-form learning novel that takes a reader with weak signal-processing intuition to operational understanding of OFDM, including FFT, cyclic prefix, synchronization, channel estimation, equalization, and QAM. Draft the opening chapter. The story must stand on its own and technical claims must be source-grounded.",
+      "required_sources": "Use the same fixed OFDM source package for every condition.",
+      "hard_gates": [
+        "no central technical falsehood",
+        "no unlicensed prerequisite required by the opening",
+        "story pressure and knowledge need are causally linked"
+      ],
+      "transfer_prompt": "Given a new multipath delay profile and an overhead limit, choose a cyclic-prefix regime and explain the tradeoff."
+    },
+    {
+      "id": "ofdm-lecture-repair",
+      "task_family": "revision",
+      "prompt": "Revise a chapter in which a mentor explains OFDM orthogonality for five pages while the protagonist only asks questions and summarizes. Preserve the technical objective, but make the scene compelling fiction with character agency and a consequential decision.",
+      "required_sources": "Use the same supplied chapter and technical notes for every condition.",
+      "hard_gates": [
+        "the protagonist owns a decision",
+        "the old model produces a visible commitment",
+        "the new model changes the outcome"
+      ],
+      "transfer_prompt": "Predict what changes when the observation window is shifted and justify the prediction."
+    },
+    {
+      "id": "real-iq-visual",
+      "task_family": "visual_data",
+      "prompt": "Create a chapter around a real IQ dataset. A spectrum, correlation trace, or constellation must function as evidence in the scene. Record provenance, processing, axes, units, supported inference, and unsupported inference.",
+      "required_sources": "Use the same raw data segment, metadata, and plotting code constraints for every condition.",
+      "hard_gates": [
+        "real and simulated data are labeled correctly",
+        "the plot is reproducible",
+        "the figure changes a diagnosis or action"
+      ],
+      "transfer_prompt": "Given a different diagnostic plot, identify which additional observation would separate the two leading causes."
+    },
+    {
+      "id": "phasor-prerequisite",
+      "task_family": "prerequisite_bridge",
+      "prompt": "Write a chapter that prepares a reader who knows real sinusoids but not complex phasors to understand constellation rotation. Introduce only the smallest bridge required by the scene.",
+      "required_sources": "Use the same mathematical definitions and target reader assumptions.",
+      "hard_gates": [
+        "complex notation has referents before use",
+        "no hidden representation jump",
+        "the bridge returns to the same concrete object"
+      ],
+      "transfer_prompt": "Map a new rotating vector representation back to two real sinusoidal components."
+    },
+    {
+      "id": "import-chapter-thirteen",
+      "task_family": "import",
+      "prompt": "Continue chapter thirteen from a supplied twelve-chapter learning novel. Reconstruct voice, continuity, promises, concept evidence, and knowledge debt before drafting.",
+      "required_sources": "Use the same twelve chapters and obsolete outline.",
+      "hard_gates": [
+        "finished prose outranks contradictory outline notes",
+        "no character knowledge contradiction",
+        "voice remains consistent"
+      ],
+      "transfer_prompt": "Explain which earlier chapter prepared the concept used in the new scene and what evidence was available."
+    },
+    {
+      "id": "delayed-retrieval",
+      "task_family": "long_range_learning",
+      "prompt": "Write a later chapter that retrieves an earlier concept after several unrelated chapters. Do not repeat the original explanation. Use the concept in a changed context with a new failure mode.",
+      "required_sources": "Use the same earlier chapters and concept state.",
+      "hard_gates": [
+        "retrieval cue is smaller than the original lesson",
+        "the context is materially changed",
+        "the return adds a new cognitive action or boundary"
+      ],
+      "transfer_prompt": "Apply the retrieved idea to a second changed context without chapter wording."
+    },
+    {
+      "id": "character-swap",
+      "task_family": "character_specificity",
+      "prompt": "Draft a technical disagreement between two established characters. Their attention, reasoning, speech, and emotional cost must remain distinguishable even when dialogue tags are removed.",
+      "required_sources": "Use the same character profiles and story state.",
+      "hard_gates": [
+        "characters are not interchangeable",
+        "technical disagreement is relationship-active",
+        "neither character becomes a generic teacher"
+      ],
+      "transfer_prompt": "Describe how each character would choose a different diagnostic test and why."
+    },
+    {
+      "id": "negative-trigger-short-story",
+      "task_family": "negative_trigger",
+      "prompt": "Write a 700-word story illustrating opportunity cost.",
+      "required_sources": "None.",
+      "hard_gates": [
+        "do not create long-form project machinery unless explicitly requested"
+      ],
+      "transfer_prompt": null
+    }
+  ]
+}
