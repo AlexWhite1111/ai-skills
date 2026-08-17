@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learning Novel Engine"
+  short_description: "把真实知识、长篇剧情、读者认知状态和连续性审计组织成可持续推进的学习小说"
+  default_prompt: "Use $learning-novel-engine to design or write this learning novel so the story remains compelling while knowledge prerequisites, technical accuracy, reader-state, continuity, and adversarial review stay explicit."
