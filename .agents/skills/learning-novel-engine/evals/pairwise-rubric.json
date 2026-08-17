@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "hard_validity_gates": [
+    {
+      "id": "technical_truth",
+      "description": "No central false technical claim, fabricated source, or invalid formula."
+    },
+    {
+      "id": "prerequisite_integrity",
+      "description": "The sample does not require an unprepared concept to follow the central scene."
+    },
+    {
+      "id": "continuity_integrity",
+      "description": "No central contradiction in character, world, object, chronology, or knowledge state."
+    },
+    {
+      "id": "visual_provenance",
+      "description": "When visuals or data are used, provenance and processing are not materially false."
+    },
+    {
+      "id": "scope_completion",
+      "description": "The requested artifact and scope are substantially complete."
+    },
+    {
+      "id": "double_causality",
+      "description": "Story pressure creates a knowledge need and the knowledge update changes action or consequence."
+    }
+  ],
+  "pairwise_dimensions": [
+    {
+      "id": "narrative_pull",
+      "weight": 1.0,
+      "questions": [
+        "Does desire and pressure precede exposition?",
+        "Does the scene turn?",
+        "Does the ending create forward momentum through consequence?"
+      ]
+    },
+    {
+      "id": "character_agency",
+      "weight": 1.0,
+      "questions": [
+        "Does the viewpoint character own a consequential choice?",
+        "Are attention, reasoning, and voice character-specific?",
+        "Is mentor dependence limited?"
+      ]
+    },
+    {
+      "id": "knowledge_necessity",
+      "weight": 1.0,
+      "questions": [
+        "Would removing the knowledge change the story outcome?",
+        "Does evidence constrain the explanation?",
+        "Does the new model change action or interpretation?"
+      ]
+    },
+    {
+      "id": "pedagogical_usability",
+      "weight": 1.0,
+      "questions": [
+        "Are prerequisites and representations licensed?",
+        "Does the reader predict, discriminate, operate, or explain?",
+        "Are assumptions and limits visible?"
+      ]
+    },
+    {
+      "id": "technical_integrity",
+      "weight": 1.0,
+      "questions": [
+        "Are claims, units, equations, and sources correct within scope?",
+        "Are simplifications and uncertainty explicit?"
+      ]
+    },
+    {
+      "id": "prose_immersion",
+      "weight": 1.0,
+      "questions": [
+        "Is point of view stable and specific?",
+        "Do rhythm and psychic distance vary intentionally?",
+        "Does the prose trust the reader and avoid generic summary?"
+      ]
+    },
+    {
+      "id": "visual_data_integration",
+      "weight": 0.75,
+      "applicable_when": "The sample uses a visual, equation, simulation, measurement, or dataset.",
+      "questions": [
+        "Does the visual answer a live question?",
+        "Is provenance reconstructable?",
+        "Does it alter a decision?"
+      ]
+    },
+    {
+      "id": "long_range_preparation",
+      "weight": 0.75,
+      "applicable_when": "The sample contains project or multi-chapter context.",
+      "questions": [
+        "Are continuity and promises preserved?",
+        "Is delayed retrieval or transfer planned or executed?",
+        "Can soft outline hypotheses change without breaking hard constraints?"
+      ]
+    }
+  ],
+  "allowed_pairwise_choices": [
+    "A",
+    "B",
+    "tie",
+    "not_applicable"
+  ],
+  "confidence_levels": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "transfer_dimensions": [
+    "concept_selection",
+    "role_mapping",
+    "application",
+    "explanation",
+    "assumptions_and_limits"
+  ],
+  "judge_independence_labels": [
+    "same-model correlated review",
+    "fresh-model blind review",
+    "human target-reader review",
+    "domain-expert review",
+    "reproducible computation"
+  ]
+}

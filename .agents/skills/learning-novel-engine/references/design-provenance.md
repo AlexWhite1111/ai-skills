@@ -1,59 +1,118 @@
-# Design provenance
+# Design Provenance
 
-This Skill is an original synthesis. It does not vendor or copy another project's prompts, agents, code, or templates. The following public work influenced particular design decisions and is worth reading directly.
+This Skill is an original synthesis. It does not vendor or copy another project's prompts, agents, code, or templates. The public work below influenced specific design decisions and should be read directly.
+
+## Contents
+
+- [OpenAI Skill Creator](#openai-skill-creator)
+- [Creative Writing Skills](#creative-writing-skills)
+- [Story Skills](#story-skills)
+- [Author Toolkit](#author-toolkit)
+- [oh-story-claudecode](#oh-story-claudecode)
+- [Verbalized Sampling](#verbalized-sampling)
+- [Long-form planning research](#long-form-planning-research)
+- [Learning science](#learning-science)
+- [Local sibling Skills](#local-sibling-skills)
+
+## OpenAI Skill Creator
+
+Project: [openai/skills](https://github.com/openai/skills)
+
+Influence:
+
+- keep `SKILL.md` focused on the core workflow;
+- use progressive disclosure through direct reference files;
+- encode deterministic and repeated operations in tested scripts;
+- evaluate Skill changes on concrete outputs rather than prose plausibility alone.
+
+V2 therefore moves craft, cognition, visuals, audits, and evaluation detail into conditional references.
 
 ## Creative Writing Skills
 
 Project: [haowjy/creative-writing-skills](https://github.com/haowjy/creative-writing-skills)
 
-Ideas that influenced this Skill:
+Influence:
 
-- keep drafting, criticism, holistic editing, first-time reader simulation, continuity checking, and factual chronicling as distinguishable roles;
-- update persistent story knowledge after prose changes rather than relying on one giant context summary;
-- treat voice/style and story memory as production concerns, not late cosmetic polish.
+- separate planning, prose craft, reader simulation, character simulation, and review;
+- treat reader inference, immersion, character modeling, and prose rhythm as positive generation targets;
+- diagnose over-explanation, flattened voice, premature resolution, and other model defaults;
+- use first-time reader response as felt evidence rather than as a universal correctness judgment.
 
-Learning Novel Engine adapts this separation of concerns to a different objective: the manuscript must also maintain knowledge prerequisites and an expected reader model.
+Learning Novel Engine adapts these ideas to learning fiction, where the manuscript must also preserve concept prerequisites, technical provenance, and expected reader evidence.
 
 ## Story Skills
 
 Project: [danjdewhurst/story-skills](https://github.com/danjdewhurst/story-skills)
 
-Ideas that influenced this Skill:
+Influence:
 
-- make story state explicit in structured files;
-- distinguish semantic creative judgment from properties that can be checked deterministically;
-- use validation for references, registries, and continuity contracts without pretending validation proves literary quality.
+- make durable story state explicit in files;
+- pair chapter drafting with continuity and promise updates;
+- distinguish semantic creative judgment from deterministic structural validation;
+- treat outlines as working plans rather than substitutes for prose.
 
-Learning Novel Engine extends the deterministic side to concept ids, prerequisite graphs, and reader-state references.
+V2 keeps the portable project state but separates hard constraints from soft narrative hypotheses.
+
+## Author Toolkit
+
+Project: [rhavekost/author-toolkit](https://github.com/rhavekost/author-toolkit)
+
+Influence:
+
+- separate developmental, line, character, continuity, and reader-testing passes;
+- load only the reference needed for the current editorial role;
+- use a fresh reader without author context when testing comprehension and engagement;
+- stop each review mode at its natural boundary.
+
+V2 strengthens reviewer information isolation and avoids calling same-model role agreement independent verification.
 
 ## oh-story-claudecode
 
 Project: [worldwonderer/oh-story-claudecode](https://github.com/worldwonderer/oh-story-claudecode)
 
-Ideas that influenced this Skill:
+Influence:
 
-- long-form fiction benefits from layered state rather than one continuously expanding summary;
-- outline shape and prose shape should not be confused;
-- imported long manuscripts need state reconstruction before continuation;
-- prose should be explicitly audited for common AI-generated defaults rather than assuming fluent text is good text.
+- long-form production benefits from explicit reader promises and state;
+- model prose needs direct auditing for over-smooth, overly complete, and mechanically elevated language;
+- chapter momentum should arise from reader contract and consequence rather than a generic cliffhanger;
+- project files should support sustained production without loading the entire manuscript.
 
-Learning Novel Engine does not adopt the commercial-web-fiction objective function; hooks and payoff density are optional craft tools, not universal requirements.
+Learning Novel Engine does not adopt a universal web-fiction objective. Emotional density, hooks, and payoff cadence remain genre-dependent.
 
 ## Verbalized Sampling
 
-Paper: [Zhang et al., “Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity”](https://arxiv.org/abs/2510.01171)
+Paper: Zhang et al., “Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity.”
 
-Idea that influenced this Skill:
+Influence:
 
-- for high-leverage creative decisions, expose multiple candidates, including plausible lower-default candidates, before committing to the first high-probability continuation.
+- generate meaningfully different candidates for high-leverage creative choices;
+- include plausible lower-default options;
+- separate divergence from final selection.
 
-Learning Novel Engine uses this only as a divergence step. Selection remains an explicit judgment against story consequence, conceptual fit, character truth, continuity cost, and teachability.
+V2 retains this for premise, conflict, explanation route, metaphor, and scene mechanism. It does not require multiple options for routine prose decisions.
+
+## Long-form planning research
+
+Public long-form generation research on hierarchical and dynamic outlines influenced the distinction between:
+
+```text
+hard constraints
+soft hypotheses
+```
+
+Detailed planning can improve coherence, while rigid planning can suppress discoveries made during drafting. V2 allows chapter hypotheses and outline order to change when finished prose reveals a stronger causal route.
+
+## Learning science
+
+General work on self-explanation, prediction, retrieval, spacing, and transfer influenced the expected reader evidence vector.
+
+The Skill does not claim that embedding these actions in fiction guarantees mastery. It treats them as design opportunities and requires separate real-reader evaluation for actual learning claims.
 
 ## Local sibling Skills
 
-When installed from the `ai-skills` repository, Learning Novel Engine can cooperate with:
+When installed from this repository:
 
-- `research-orchestrator` for source-grounded research, alternative hypotheses, falsification, and adversarial audit;
-- `narrative-tutor` for local model-repair teaching patterns.
+- `research-orchestrator` supports source-grounded research, competing hypotheses, falsification, and adversarial audit;
+- `narrative-tutor` supports local model-repair design.
 
-These are optional collaborators, not runtime dependencies. A copied-out `learning-novel-engine` directory must remain understandable and usable on its own.
+V2 adds a third missing layer inside Learning Novel Engine: converting model repair into character-specific scene causality, prose, visual evidence, and long-range return.

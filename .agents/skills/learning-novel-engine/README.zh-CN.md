@@ -1,126 +1,158 @@
 # Learning Novel Engine
 
-`$learning-novel-engine` 是一个面向“用小说真正教会知识”的长篇创作 Skill。
+`$learning-novel-engine` 用于创作、修订和评测“真正靠小说教会知识”的长篇作品。
 
-它不是把教材内容塞进人物对白，也不是单纯追求“好看”。它同时维护四个互相制约的目标：
-
-1. **小说成立**：人物、欲望、冲突、节奏、场景和语言本身要能支撑阅读欲。
-2. **知识成立**：技术事实、公式、因果机制、边界和不确定性不能被剧情方便性扭曲。
-3. **教学成立**：知识按前置依赖进入，先让旧模型暴露缺口，再引入最小必要工具，并立即回到具体问题。
-4. **长篇成立**：人物知道什么、读者被允许知道什么、伏笔、物件、术语、世界规则和知识状态都要长期一致。
-
-## 什么时候用
-
-适合：
-
-- 用小说系统学习 OFDM、信号处理、数学、物理、工程等知识；
-- 把一门课程改造成有完整人物和剧情的长篇故事；
-- 写“叙事教材”“技术小说”“学习小说”；
-- 续写已有学习型小说，同时保持几十章的知识与剧情连续性；
-- 对已有章节做技术、教学、连续性和文学四重审计。
-
-不适合：
-
-- 普通小说创作，且没有明确学习目标；
-- 一次性的概念解释；
-- 简单知识问答或短篇寓言；
-- 只需要润色几段文字的任务。
-
-一次性教学更适合 `$narrative-tutor`。困难事实研究、开放问题和敌对验证更适合 `$research-orchestrator`。本 Skill 可以和它们协作，但自身不依赖兄弟 Skill 才能工作。
-
-## 核心思路
-
-每个重要知识点都必须回答一个问题：
-
-> 如果人物和读者现在没有获得这个概念，故事里到底有什么事情会因此变得解释不了、做不了、代价很高，或者产生错误判断？
-
-典型推进链：
+V2 的重点不再只是防止知识错误、前置泄漏和连续性崩坏，而是补上正向生成发动机：
 
 ```text
-具体问题
-→ 当前直觉/旧模型
-→ 旧模型撞墙
-→ 最小必要新概念
-→ 马上拿来解决原问题
-→ 人物的判断或行动发生变化
+人物欲望与压力
+→ 旧模型驱动一次真实行动
+→ 世界返回可观察证据
+→ 最小知识修补
+→ 人物必须据此选择
+→ 选择改变剧情、关系或系统状态
 ```
 
-知识因此成为剧情因果链的一部分，而不是附着在故事表面的说明书。
+知识不是人物对白里的课程，而是行动的分水岭。
 
-## 长篇状态
+## 核心改进
 
-Skill 建议维护一个“预期读者模型”，而不是假装知道真实读者掌握到了哪里：
+### 双向因果
+
+每个重要教学场景都必须同时成立：
 
 ```text
-unseen
-→ exposed
-→ intuitive
-→ operational
-→ formal
-→ transfer-ready
+剧情压力 -> 产生知识需要
+知识更新 -> 改变选择与后果
 ```
 
-它表示“书稿目前给读者准备了什么”，不表示某个真实读者已经通过测试。
+删掉知识后剧情结局不变，或者删掉剧情后解释仍以同样方式出现，都说明融合失败。
 
-例如 OFDM 里的“子载波正交性”可以经历：
+### 正向小说工艺
+
+V2 增加了独立的小说执行层，覆盖：
+
+- 视角人物的注意力过滤；
+- 心理距离与自由间接叙述；
+- 人物声音和压力变形；
+- 对话中的关系、隐瞒和争夺；
+- 段落与句子节奏；
+- 信息省略、潜台词和读者推断；
+- 从后果而不是课程目录结束章节。
+
+### 人物模拟
+
+连续性账本只负责“什么必须为真”。人物模拟负责“这个人此刻会怎么做”。
+
+每个核心人物可以维护：
 
 ```text
-听说多个频率能叠在一起
-→ 看到时间域波形与频域峰
-→ 理解积分/相关为什么让别的子载波贡献为 0
-→ 能预测采样窗口错位时会发生什么
-→ 接触正式离散公式
-→ 在另一个多载波例子里自己判断正交条件
+证据偏好 | 推理习惯 | 注意力偏向 | 冲突策略
+压力反应 | 语言节奏 | 隐瞒内容 | 关系特异行为
 ```
 
-## 七个审计角色
+学习不会把所有人物变成同一种冷静的小老师。
 
-重要章节写完后，分别从七个镜头审视：
+### 多维读者证据
 
-- Technical auditor：事实、公式、机制、假设、边界。
-- Pedagogy auditor：前置知识、认知跳步、工作记忆、假掌握。
-- Continuity auditor：人物、时间、物件、世界规则、前后知识一致性。
-- Story critic：欲望、冲突、因果、场景转折、人物能动性。
-- Reader simulator：模拟第一次阅读时哪里想继续、哪里断线。
-- Editor：综合冲突，优先修真正伤害作品的问题。
-- Chronicler：章节确认后再把新事实和状态写回账本。
-
-同一个模型可以顺序执行这些角色，但不能把它们糊成一句“整体看起来不错”。
-
-## 创意发散
-
-对于故事前提、重大转折、核心比喻、角色关系等高影响选择，Skill 不直接接受模型第一个想到的方案。它先制造若干真正不同的候选，再按照：
+保留兼容的摘要状态：
 
 ```text
-剧情后果 | 知识契合 | 人物真实性 | 新鲜度 | 连续性成本 | 可教学性
+unseen -> exposed -> intuitive -> operational -> formal -> transfer-ready
 ```
 
-进行选择。
+但状态必须由更具体的证据向量支撑：
 
-这个设计吸收了 Verbalized Sampling 中“显式展开候选分布以减轻默认模式坍缩”的思想，但不会为了新奇而牺牲质量。
+```text
+识别 | 预测 | 表示映射 | 操作
+辨别 | 解释 | 延迟提取 | 迁移
+```
 
-## 项目文件
+这些仍然只是“书稿提供了什么机会”，不是对真实读者掌握度的诊断。
 
-推荐结构与机器检查方式见：
+### 图像与真实数据
 
-- [`references/project-layout.md`](references/project-layout.md)
-- [`references/audit-protocol.md`](references/audit-protocol.md)
-- [`references/evaluation-cases.md`](references/evaluation-cases.md)
+图、公式、频谱、星座图、相关峰、模拟和真实 IQ 数据必须承担证据工作：
 
-如果项目采用推荐结构，可以运行：
+```text
+问题 | 来源 | 处理流程 | 坐标与单位 | 观察目标
+支持什么推断 | 不支持什么推断 | 改变哪个决定
+```
+
+真实、模拟、示意、重建和虚构数据必须明确区分。
+
+### 隔离审计
+
+写作者、技术审计、教学审计、故事评论、首次读者、编辑和编年者使用不同信息包。
+
+首次读者不能看到章节合同、教学目标或未来解释。同一个模型连续扮演多个角色仍属于相关审查，不能称为独立验证。
+
+### 基线评测
+
+修改 Skill 时，至少比较：
+
+```text
+无 Skill
+当前发布版
+候选版
+```
+
+使用相同任务、固定来源、多次采样、隐藏标签、随机 A/B、硬性有效性门槛、读者偏好和独立迁移题。
+
+回归用例通过，只能说明规则没有明显破坏，不能说明小说写得更好。
+
+## 参考文件
+
+- [`references/scene-fusion.md`](references/scene-fusion.md)：场景双向因果与教学融合。
+- [`references/fiction-craft.md`](references/fiction-craft.md)：视角、语言、对话、节奏和信息经济。
+- [`references/character-simulation.md`](references/character-simulation.md)：人物行为与能动性。
+- [`references/reader-cognition.md`](references/reader-cognition.md)：认知证据、延迟提取和迁移。
+- [`references/visual-evidence.md`](references/visual-evidence.md)：图像、公式、模拟和真实数据。
+- [`references/audit-protocol.md`](references/audit-protocol.md)：隔离式多镜头审计。
+- [`references/evaluation-rubric.md`](references/evaluation-rubric.md)：盲式基线评测。
+- [`references/project-layout.md`](references/project-layout.md)：长篇项目状态。
+- [`references/evaluation-cases.md`](references/evaluation-cases.md)：原有行为回归用例。
+- [`references/evaluation-cases-v2.md`](references/evaluation-cases-v2.md)：V2 场景、人物、视觉和评测回归用例。
+
+## 工具与评测资产
+
+验证项目结构：
 
 ```bash
-python3 scripts/validate_project.py /path/to/learning-novel-project
+python3 scripts/validate_project.py /path/to/project
 ```
 
-它只验证结构、概念 ID、前置依赖、环路和状态引用等可机械验证的问题。通过检查不等于小说好看，更不等于技术事实已经被证明正确。
+输出机器可读结果：
+
+```bash
+python3 scripts/validate_project.py /path/to/project --json
+```
+
+准备盲式 A/B：
+
+```bash
+python3 scripts/prepare_blind_eval.py \
+  --baseline /path/to/baseline \
+  --candidate /path/to/candidate \
+  --output /path/to/blind-eval \
+  --seed 2026
+```
+
+起始评测任务与配对量表位于：
+
+- [`evals/prompts.json`](evals/prompts.json)
+- [`evals/pairwise-rubric.json`](evals/pairwise-rubric.json)
+
+脚本只验证或组织明确的机械属性，不证明技术事实、教学效果或文学质量。
 
 ## 调用示例
 
 ```text
-使用 $learning-novel-engine，把通信原理里 OFDM 及其上下游知识设计成一部长篇学习小说。要求读者不靠额外教材也能逐渐建立完整模型，并对每章做技术、教学、连续性和读者体验审计。
+使用 $learning-novel-engine，把 OFDM 及其上下游知识设计成一部长篇学习小说。使用真实 IQ 数据时维护来源与处理记录。每个教学场景必须通过双向因果门，并在章节确认前运行隔离式故事、技术、教学和首次读者审计。
 ```
 
 ```text
-使用 $learning-novel-engine 继续这本已有小说。先重建人物、世界、伏笔、知识图和预期读者状态，再写下一章，不要让人物突然掌握尚未铺垫的知识。
+使用 $learning-novel-engine 修订这一章。现在它像导师讲课，请先重建人物欲望、错误行动、可观察证据、决定分叉和后果，再进行小说工艺与知识审计。
 ```
+
+困难事实研究和敌对验证可调用 `$research-orchestrator`。局部认知模型修补可调用 `$narrative-tutor`。

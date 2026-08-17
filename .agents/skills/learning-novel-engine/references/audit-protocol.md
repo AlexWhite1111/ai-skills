@@ -1,176 +1,308 @@
-# Multi-lens audit protocol
+# Multi-Lens Audit Protocol
 
-A learning novel can fail in several independent ways. Keep the lenses separate long enough to expose disagreement, then synthesize them.
+A learning novel can fail independently as fiction, teaching, technical work, visual communication, or long-form continuity. Keep the lenses separate until they expose disagreement, then synthesize by causal leverage.
+
+## Contents
+
+- [Severity](#severity)
+- [Information isolation](#information-isolation)
+- [Finding format](#finding-format)
+- [Technical auditor](#technical-auditor)
+- [Pedagogy auditor](#pedagogy-auditor)
+- [Continuity auditor](#continuity-auditor)
+- [Story critic](#story-critic)
+- [First-Time Reader Simulator](#first-time-reader-simulator)
+- [Character and Voice Pass](#character-and-voice-pass)
+- [Visual and Data Auditor](#visual-and-data-auditor)
+- [Editor synthesis](#editor-synthesis)
+- [Chronicler protocol](#chronicler-protocol)
+- [Adversarial pass](#adversarial-pass)
+- [Acceptance record](#acceptance-record)
 
 ## Severity
 
-Use four severities:
+Use:
 
-- **S0 — note**: preference, optional polish, or benign alternative.
-- **S1 — local friction**: a reader may stumble, prose may flatten briefly, or a minor fact/state needs clarification.
-- **S2 — structural defect**: the chapter's intended story or learning transition is materially weakened.
-- **S3 — invalidating defect**: factual falsehood presented as canon, prerequisite impossibility, continuity contradiction, or a scene whose central causal logic fails.
+- **S0 note**: preference or optional polish;
+- **S1 local friction**: brief stumble, flattening, or minor clarification need;
+- **S2 structural defect**: the intended dramatic or learning transition is materially weakened;
+- **S3 invalidating defect**: factual falsehood presented as canon, prerequisite impossibility, continuity contradiction, fabricated provenance, or broken central causality.
 
-Fix S3 before accepting a chapter. Normally fix S2 unless the defect is consciously deferred and recorded as debt. Do not spend most revision effort on S0 while S2/S3 remain.
+Fix S3 before acceptance. Normally fix S2 unless it is deliberately carried as explicit debt. Do not spend most revision effort on S0 while S2 or S3 remains.
+
+## Information isolation
+
+Review packages determine what each role may know.
+
+| Role | May see | Must not rely on |
+|---|---|---|
+| technical auditor | prose, claims, equations, data/visual provenance, source package | authorial intention as evidence |
+| pedagogy auditor | prose, concept graph, entry reader evidence | future chapters that repair the gap |
+| continuity auditor | prose, canon, timeline, character knowledge, promises | desired new canon |
+| story critic | prose and prior readable story | chapter contract, lesson objective, concept graph |
+| first-time reader | readable manuscript through current chapter | outline, story bible, audits, future explanations |
+| editor | prose and all reports | majority vote as proof |
+| chronicler | accepted prose and final decisions | rejected drafts |
+
+When one model runs several roles, execute them sequentially with sealed notes and do not claim independent verification. A fresh context, another model, or a human reader provides stronger independence.
+
+## Finding format
+
+Use:
+
+```text
+severity | lens | location | observed effect | causal diagnosis | minimal repair | verification
+```
+
+Anchor findings to exact passages, figures, equations, scene beats, or ledger entries.
 
 ## Technical auditor
 
-Inspect claims at the level appropriate to their type.
-
-Checklist:
-
-- Is this a theorem, identity, empirical observation, engineering approximation, convention, analogy, character belief, or fictional fact?
-- Are assumptions and variable meanings visible before the conclusion depends on them?
-- Are units and orders of magnitude coherent?
-- Is a sufficient condition being accidentally described as necessary, or vice versa?
-- Does a simplification change the answer in the regime used by the plot?
-- Is a named standard, paper, historical claim, quote, or measurement verified rather than invented?
-- If uncertainty matters, is it represented rather than erased?
-
-Output findings as:
+Classify each substantive claim:
 
 ```text
-severity | location | claim | problem | minimal repair | verification needed
+theorem
+identity
+empirical observation
+engineering approximation
+convention
+analogy
+character belief
+fictional fact
+contested interpretation
 ```
 
-Do not rewrite prose during diagnosis unless a repair example is needed to make the issue precise.
+Check:
+
+- variables, units, sign and indexing conventions;
+- assumptions before conclusions depend on them;
+- necessary versus sufficient conditions;
+- exact statement versus approximation;
+- numerical order of magnitude;
+- causal mechanism;
+- edge cases and failure regimes;
+- source and quotation provenance;
+- dataset and figure provenance;
+- whether simplification changes the decision used by the plot.
+
+For plots and diagrams, use [visual-evidence.md](visual-evidence.md).
+
+An analogy can motivate or organize. It cannot prove the mechanism.
 
 ## Pedagogy auditor
 
-Audit the manuscript's expected reader model, not a hypothetical genius reader.
+Audit the expected reader model, not an imagined expert.
 
-Look for:
-
-- concepts used before prerequisites are licensed;
-- notation appearing before roles are established;
-- hidden algebra or representation changes;
-- several unfamiliar transformations compressed into one sentence;
-- explanations that introduce a taxonomy larger than the local problem needs;
-- analogies with no explicit map back to the real mechanism;
-- a character saying “I get it” being treated as evidence of capability;
-- repeated exposition with no new predictive or operational power;
-- a formal derivation that never returns to the concrete problem;
-- a “transfer” scene that is only the original example with nouns changed.
-
-For every major learning beat, reconstruct:
+For every major learning beat reconstruct:
 
 ```text
-entry model -> crack -> repair -> immediate use -> exit capability
+entry model -> commitment -> evidence -> repair -> decision -> exit evidence
 ```
 
-If one arrow is missing, name the exact arrow.
+Flag the exact missing arrow.
+
+Inspect:
+
+- unlicensed prerequisites;
+- symbols before referents;
+- hidden algebra or representation changes;
+- several unfamiliar transformations compressed together;
+- explanations that never return to the concrete target;
+- concepts introduced without a visible need;
+- character agreement treated as reader capability;
+- repeated exposition without new cognitive action;
+- transfer that changes only surface nouns or numbers;
+- no delayed retrieval for a concept the book promises to retain;
+- a figure revealed without a question or inspection target.
+
+Use the evidence vector from [reader-cognition.md](reader-cognition.md).
 
 ## Continuity auditor
 
 Cross-check:
 
 - chronology and travel time;
-- character location and physical state;
-- what each character knows, suspects, and cannot know yet;
-- world rules and technical constraints;
-- object ownership and condition;
+- location and physical condition;
+- object ownership and state;
 - terminology and notation;
 - prior measurements and numerical values;
+- world and institutional rules;
+- what each character knows, suspects, denies, or cannot know;
+- expected reader evidence versus character knowledge;
 - promises, mysteries, foreshadowing, and reveals;
-- reader knowledge versus character knowledge;
-- concepts previously marked as provisional or disputed.
+- technical claims previously marked provisional or contested;
+- dataset identity and processing history.
 
-Distinguish three failure classes:
+Classify:
 
-1. **contradiction** — two canonical facts cannot both be true;
-2. **unlicensed reveal** — information appears before the story can supply it;
-3. **silent drift** — a property changes with no causal bridge.
+1. **contradiction**: canonical statements cannot both be true;
+2. **unlicensed reveal**: information appears before the story can supply it;
+3. **silent drift**: a property changes without a causal bridge;
+4. **provenance break**: a figure, claim, or artifact loses its source chain.
+
+Do not silently edit the ledger to fit a preferred draft.
 
 ## Story critic
 
-Ignore teaching correctness for one pass and ask whether the fiction works.
+Ignore the lesson plan for one pass.
 
-Inspect:
+Ask:
 
-- What does the viewpoint character want in the scene?
-- What resists that desire?
-- Does the character act, or merely receive explanations?
-- What changes by the end of the scene?
-- Are stakes specific to these characters rather than generic “failure is bad” language?
-- Does technical material alter choices, relationships, risk, or interpretation?
-- Are revelations earned by causality rather than author convenience?
-- Is the scene shaped by concrete environment and behavior rather than summary?
-- Do different characters have distinguishable reasoning habits and speech?
-- Does the chapter ending arise from consequence rather than a mechanical cliffhanger?
+- What does the viewpoint character want before the concept appears?
+- What opposes the desire?
+- What commitment or risk belongs to the character?
+- What changes by the end?
+- Does technical material alter choice, relationship, risk, status, or interpretation?
+- Is the scene shaped by this place, these people, and this problem?
+- Are revelations caused by action and evidence?
+- Do characters have distinct attention, reasoning, and speech?
+- Does the ending arise from consequence?
+- Would the scene matter if the teaching paragraph vanished?
 
-Flag any paragraph that could be moved to another novel with only terminology swapped.
+Flag:
 
-## First-time reader simulator
+- mentor lectures with passive recipients;
+- interchangeable characters;
+- generic atmosphere;
+- conflict that pauses politely for explanation;
+- a protagonist who never owns a decision;
+- summary prose that reports an outline;
+- emotional turns without prior causality;
+- chapter endings that announce the next syllabus item.
 
-Simulate sequentially. Do not borrow explanations from later chapters.
+## First-Time Reader Simulator
 
-At meaningful points, record:
+Read sequentially without consulting future material.
+
+Assume a stated persona:
 
 ```text
-what I currently think
-what I expect next
-what I am curious about
-what I cannot yet connect
-what feels earned
-what feels assigned homework
+starting knowledge
+genre familiarity
+tolerance for ambiguity
+reading purpose
 ```
 
-The simulator is not a correctness judge. Confusion can be productive if the manuscript makes the object of confusion clear and resolves it at the intended time.
+Record moment by moment:
+
+```text
+what I think is happening
+what I expect
+what I am curious about
+what I cannot connect
+where I lean in
+where I drift
+what feels earned
+what feels assigned
+what I can now predict or distinguish
+```
 
 Distinguish:
 
-- **productive uncertainty**: “I do not know which cause is responsible, but I know what the candidates are.”
-- **representation break**: “I no longer know what the symbols or objects refer to.”
-- **causal break**: “I know the words but cannot see why this conclusion follows.”
-- **motivation break**: “I understand the explanation but do not care why it is happening now.”
+- **productive uncertainty**: live alternatives and diagnostic question are clear;
+- **representation break**: objects or symbols lose referents;
+- **causal break**: conclusion does not follow;
+- **motivation break**: explanation is understandable but not wanted now;
+- **transport break**: prose, POV, or presentation makes the reader aware of the machinery;
+- **false fluency**: text feels clear, but no usable prediction or distinction remains.
 
-The last three normally require revision.
+The simulator reports felt experience. It does not certify technical truth.
+
+## Character and Voice Pass
+
+Use when the story critic finds replaceability or flat speech.
+
+Check:
+
+- attention bias;
+- relationship-specific voice;
+- normal versus stressed language;
+- what the character avoids saying;
+- how expertise changes perception;
+- whether conceptual change alters behavior without replacing personality.
+
+Run the character swap test from [character-simulation.md](character-simulation.md).
+
+## Visual and Data Auditor
+
+For every important visual:
+
+- verify provenance class;
+- reconstruct processing;
+- inspect axes, units, scale, normalization, and labels;
+- state the pattern the reader is asked to see;
+- check whether the figure distinguishes live explanations;
+- limit conclusions to what the figure supports;
+- verify story consequence;
+- confirm textual accessibility.
+
+A decorative or redundant visual is S1 or S2 depending on how much it disrupts flow. A false or fabricated visual presented as evidence is S3.
 
 ## Editor synthesis
 
-Merge findings by causal leverage.
+Do not average reports or fix issues in the order found.
 
-Prefer a fix that repairs several lenses simultaneously. For example, replacing a mentor lecture with a failed measurement can:
+Rank by causal leverage:
 
-- restore character agency;
-- make the concept necessary;
-- reveal the learner's current model;
-- create evidence for a technical distinction;
-- improve scene tension.
+1. S3 truth, prerequisite, continuity, or provenance defects;
+2. double-causality failure;
+3. reader representation, causal, or motivation breaks;
+4. character agency and voice;
+5. pacing and information economy;
+6. local prose and presentation.
 
-Do not average conflicting reviews. Resolve the conflict by asking which book contract each reviewer is protecting.
+Prefer one change that repairs several lenses.
 
-Recommended synthesis order:
+Examples:
 
-1. S3 technical/continuity/prerequisite defects;
-2. scene causality and knowledge necessity;
-3. reader comprehension breaks;
-4. character and voice degradation;
-5. local prose polish.
+- Replace a mentor lecture with a failed measurement and a disputed diagnosis.
+- Move a formula until variables become necessary, then let it decide a test.
+- Give the protagonist ownership of the experiment and its social cost.
+- Remove a summary paragraph and let the next action reveal the inference.
+- Rebuild a figure from reproducible real data and make it contradict the favored hypothesis.
+
+After structural repairs, rerun the affected lenses. A repair may introduce a new prerequisite, continuity, or source problem.
 
 ## Chronicler protocol
 
-The chronicler records accepted consequences. It does not decide whether a draft deserves acceptance.
+The chronicler records accepted consequences. It does not decide acceptance.
 
 After acceptance:
 
-- add only facts shown or logically entailed by the chapter;
-- update character knowledge separately from expected reader state;
-- close a promise only when the promised information/action is actually delivered;
-- advance concept state only when the manuscript supplied the corresponding evidence;
-- open explicit debt for a simplification, unresolved source question, or intentionally delayed repair;
-- never rewrite old canon silently to make the new chapter fit.
-
-If canon must change, record the retcon or revision boundary explicitly.
+- add only facts shown or logically entailed;
+- update character knowledge separately from expected reader evidence;
+- record new behavioral evidence without overgeneralizing;
+- close a promise only when delivered;
+- update source and visual provenance;
+- schedule delayed return and transfer;
+- preserve unresolved uncertainty and debt;
+- record explicit retcons rather than rewriting history silently.
 
 ## Adversarial pass
 
-For pivotal chapters or book-level audits, perform one final hostile reading:
+For pivotal chapters or global audits, attack the favorite interpretation:
 
-- Assume the chapter's favorite explanation is wrong. What observation would distinguish it?
-- Assume the emotional turn is unearned. Which earlier causal step is missing?
-- Assume the concept sequence is backwards. Which prerequisite is being smuggled in?
-- Assume the continuity ledger is stale. Which concrete statement in prior prose would contradict the current scene?
-- Assume the prose sounds AI-generic. Which sentence lacks character-, place-, or problem-specific information?
+- Assume the explanation is wrong. What observation would distinguish it?
+- Assume the emotional turn is unearned. Which earlier choice is missing?
+- Assume the concept order is backward. What prerequisite is smuggled in?
+- Assume the visual is misleading. Which processing choice could create the pattern?
+- Assume the continuity ledger is stale. Which prior sentence contradicts this scene?
+- Assume the prose is generic. Which paragraph survives a character and setting swap?
+- Assume clarity is false fluency. What new problem can the reader actually solve?
 
-The goal is falsification, not cynicism. Stop inventing objections once the relevant failure modes have been seriously tested.
+Stop inventing objections after the relevant failure modes have been seriously tested.
+
+## Acceptance record
+
+For an accepted chapter, report:
+
+```text
+critical findings closed
+major findings closed or explicit debt
+technical/source status
+reader-evidence change
+continuity change
+visual/data status
+remaining uncertainty
+audits run and their information boundaries
+```
