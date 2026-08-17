@@ -374,7 +374,7 @@ Optional.
       "chapter": 4,
       "kind": "evidence",
       "provenance": "derived from real data",
-      "source": "droneid.dat samples 3901000:3962440",
+      "source": "capture-01.iq samples 120000:181440",
       "processing": [
         "float32 interleaved I/Q",
         "FFT length 4096",
