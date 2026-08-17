@@ -2,6 +2,15 @@
 
 Use these cases in addition to the original `evaluation-cases.md`. They target the generative and evaluation mechanisms introduced in V2.
 
+## Contents
+
+- [Scene fusion](#scene-fusion)
+- [Character and prose](#character-and-prose)
+- [Reader cognition](#reader-cognition)
+- [Visual and source integrity](#visual-and-source-integrity)
+- [Planning and audit isolation](#planning-and-audit-isolation)
+- [Skill evaluation](#skill-evaluation)
+
 ## Scene fusion
 
 ### Double-causality failure
