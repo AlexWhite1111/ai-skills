@@ -268,7 +268,7 @@ Qualitative cases remain useful for contract coverage. Include at least:
 - blind reader isolation;
 - dynamic outline revision.
 
-Read [evaluation-cases.md](evaluation-cases.md) for expected behavior.
+Read [evaluation-cases.md](evaluation-cases.md) for the original contract cases and [evaluation-cases-v2.md](evaluation-cases-v2.md) for the V2 scene, character, visual, and evaluation regressions.
 
 ## Failure interpretation
 
