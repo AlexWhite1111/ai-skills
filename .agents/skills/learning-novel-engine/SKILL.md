@@ -1,314 +1,296 @@
 ---
 name: learning-novel-engine
-description: Use when planning, writing, revising, or auditing long-form fiction whose explicit purpose includes teaching real knowledge, such as a learning novel, technical novel, narrative textbook, curriculum-as-story, or a story that should leave the reader able to reason with mathematics, science, engineering, history, economics, philosophy, or another substantive domain. Trigger especially when the work spans multiple chapters, must preserve both story continuity and knowledge prerequisites, or needs reader-state, misconception, technical-accuracy, reader-simulation, and adversarial-review passes. Do not use for ordinary fiction with no learning objective, one-off explanations or tutoring turns, simple summaries, or requests that only need a short illustrative story.
+description: Use when planning, writing, revising, importing, auditing, or evaluating long-form fiction whose explicit purpose is to teach real knowledge, including learning novels, technical novels, narrative textbooks, curriculum-as-story, and multi-chapter stories that should leave readers able to reason with mathematics, science, engineering, history, economics, philosophy, or another substantive domain. Trigger especially when story causality must be fused with knowledge acquisition, character and reader knowledge must remain separate, technical claims or visuals require verification, chapters need isolated reader simulation, or a new Skill version must be compared against a baseline. Do not use for ordinary fiction with no learning objective, one-off tutoring, simple summaries, or short illustrative stories.
 ---
 
 # Learning Novel Engine
 
-Write fiction that genuinely teaches without turning the story into a textbook wearing a costume.
+Create learning fiction that works as fiction and leaves the manuscript prepared to support real use of the knowledge.
 
-The central contract is:
+The governing contract is:
 
 \[
 \text{reader wants to continue}
-\quad + \quad
-\text{knowledge becomes necessary}
-\quad + \quad
-\text{the reader can use what was learned}
+\quad+\quad
+\text{knowledge becomes causally necessary}
+\quad+\quad
+\text{the manuscript prepares observable use}
 \]
 
-Treat narrative quality, factual correctness, pedagogical sequencing, and long-range continuity as separate constraints. A chapter is not successful merely because its prose is pleasant or its technical statements are correct.
+Treat narrative quality, technical truth, pedagogy, visual evidence, continuity, and evaluation as separate constraints. Never let correctness excuse lifeless fiction, or attractive prose excuse false teaching.
 
-## Preserve the three-layer boundary
+## Route the task before loading details
 
-This Skill owns long-form learning-fiction production.
+Choose one primary mode:
 
-- Research and source verification are a separate capability. If a rigorous research workflow such as `research-orchestrator` is available, use it for unstable, disputed, niche, or technically consequential claims. Otherwise perform the best available source verification and label uncertainty.
-- Interactive concept explanation is a separate capability. If a teaching workflow such as `narrative-tutor` is available, its model-repair logic may inform difficult explanatory scenes, but this Skill must remain usable without it.
-- Personal mastery state is not story state. Never claim that a real reader has mastered a concept merely because the manuscript exposed or explained it.
+- **architect**: establish or revise the book contract, concept graph, story architecture, and evaluation plan;
+- **draft**: create a chapter or scene from accepted project state;
+- **revise**: repair existing prose without silently rewriting canon;
+- **import**: reconstruct an existing manuscript before continuing;
+- **audit**: diagnose a specified scope without automatically rewriting it;
+- **evaluate**: compare workflows or Skill versions through controlled blind evaluation.
 
-The portable project state maintained by this Skill is an **expected reader model**: what the manuscript is allowed to assume a careful reader could currently follow, not a diagnosis of any particular person.
+Load only the references required by the selected mode:
 
-## Start with a book contract
+- Read [references/scene-fusion.md](references/scene-fusion.md) before drafting or structurally revising a teaching scene.
+- Read [references/fiction-craft.md](references/fiction-craft.md) before prose generation, line revision, or voice repair.
+- Read [references/character-simulation.md](references/character-simulation.md) when character agency, voice, relationship pressure, or mentor dependence matters.
+- Read [references/reader-cognition.md](references/reader-cognition.md) when designing concept order, cognitive actions, delayed return, transfer, or expected reader evidence.
+- Read [references/visual-evidence.md](references/visual-evidence.md) whenever diagrams, plots, equations, simulations, measurements, or real datasets affect understanding.
+- Read [references/audit-protocol.md](references/audit-protocol.md) before accepting an important chapter or running an audit.
+- Read [references/evaluation-rubric.md](references/evaluation-rubric.md) when modifying this Skill or comparing outputs.
+- Read [references/project-layout.md](references/project-layout.md) when creating, reconstructing, or migrating a long-form project.
 
-Before outlining chapters, establish the minimum book contract:
+Use `research-orchestrator` for unstable, disputed, niche, or technically consequential claims. Use `narrative-tutor` to design a difficult local model repair. Neither sibling Skill replaces this Skill's responsibility to turn knowledge into scene causality and durable book structure.
+
+## Establish the book contract
+
+Before the plot hardens, record:
 
 ```text
 subject domain | target reader | starting assumptions | end capability
-story genre | emotional promise | approximate scale | technical rigor
-must-teach concepts | must-not-assume concepts | source policy
+story genre | emotional promise | central dramatic question | approximate scale
+technical rigor | source policy | visual/data policy
+must-teach concepts | must-not-assume concepts | forbidden story shortcuts
+evaluation baseline | acceptance conditions
 ```
 
-If the user supplied these implicitly, infer conservatively instead of interrogating them with a long questionnaire. Record unresolved choices explicitly.
+Infer conservatively from supplied material. Ask only for a choice that cannot be recovered from the manuscript, project files, or user context.
 
-For an existing manuscript, reconstruct the contract from the text before changing it.
+Separate:
 
-## Build a knowledge dependency graph before the plot hardens
+- **hard constraints**: verified facts, prerequisites, world rules, established canon, promises, and end capabilities;
+- **soft hypotheses**: scene locations, metaphors, reveal mechanisms, chapter order, and planned emotional turns.
 
-Represent each important concept as a node with at least:
+Preserve hard constraints. Revise soft hypotheses when the draft reveals a stronger route. An outline is a live hypothesis, not a form the prose must fill.
+
+## Build two coupled systems
+
+### Knowledge system
+
+For every important concept, track:
 
 ```text
-id | name | prerequisites | target capability | common failure mode
+id | name | prerequisites | target capability | common failure modes
+evidence dimensions | delayed return | transfer challenge | source status
 ```
 
-Target capability should describe an observable use, not vague familiarity. Prefer verbs such as explain, predict, derive, compare, calculate, diagnose, design, or transfer.
+Concept dependency, narrative order, and formal order may differ. A phenomenon may be foreshadowed before formalization, but the manuscript may not require an unlicensed concept.
 
-Separate three things:
+Expected reader state describes manuscript evidence, not a real person's mastery. Keep a summary state only as a compact index. Ground it in the evidence vector from [references/reader-cognition.md](references/reader-cognition.md).
 
-1. **concept dependency** — what must be understood before another idea is intelligible;
-2. **narrative order** — when the story makes an idea emotionally or practically necessary;
-3. **formal order** — when notation, equations, proofs, or authoritative definitions are introduced.
+### Story system
 
-These orders may differ. The story may foreshadow a phenomenon before formalizing it, but it may not require a concept the reader has not yet been given enough machinery to use.
+Track:
 
-Read [references/project-layout.md](references/project-layout.md) when creating or reconstructing a long-form project.
+```text
+character wants, fears, blind spots, reasoning habits, and relationships
+world and institutional constraints
+active conflicts and promises
+object, location, chronology, and knowledge state
+voice and point-of-view rules
+```
 
-## Make knowledge causal, not decorative
+Continuity prevents contradiction. Character simulation produces behavior. Do not confuse the two.
 
-For every major teaching beat, ask:
+## Design chapters as testable hypotheses
 
-> What becomes impossible, costly, mysterious, or emotionally consequential in the story if the character and reader do not acquire this idea?
-
-A concept earns page space when it repairs a real obstacle. Use this sequence when possible:
-
-1. concrete situation;
-2. current model or intuitive guess;
-3. consequential mismatch;
-4. smallest new idea that repairs it;
-5. immediate use on the same situation;
-6. changed decision, prediction, interpretation, or action.
-
-Do not force every concept into dialogue. Discovery may occur through failed experiments, measurements, diagrams, arguments, code, physical constraints, archival evidence, design choices, or consequences.
-
-An analogy is incomplete until the prose maps back to the real mechanism and states where the analogy stops working.
-
-## Use a chapter contract
-
-Before drafting a chapter, privately or in project files define:
+Before drafting a chapter, define a compact chapter hypothesis:
 
 ```text
 story job
 knowledge job
-entry reader model
+entry reader evidence
+dramatic pressure
+wrong or incomplete model
+decision hinge
 new concept budget
-misconception or obstacle
-scene-level necessity
 exit capability
+consequence
 continuity changes
-open promises
+open and closed promises
+visual or data role
 ```
 
-Default to one major conceptual transition per scene and a small number per chapter. A difficult chapter may contain more only when the intermediate representations are already familiar.
+A chapter hypothesis predicts that a particular dramatic pressure can make a particular knowledge change necessary. Drafting and reader simulation test that prediction. Rewrite the hypothesis when the scene disproves it.
 
-The **exit capability** must be stronger than “the reader has seen X.” Examples:
+Default to one major unfamiliar conceptual transition per scene. Allow more only when intermediate representations are already licensed.
 
-- predict how changing cyclic-prefix length affects overhead and robustness;
-- explain why orthogonality can separate overlapping OFDM subcarriers;
-- identify which synchronization error creates a common phase rotation versus inter-carrier interference.
+## Generate scenes through double causality
 
-These are manuscript targets, not proof that a real reader can already perform them.
+Every major teaching scene must pass both directions:
 
-## Draft in story-first causal order
+\[
+\text{story pressure} \rightarrow \text{knowledge need}
+\]
 
-When writing prose:
+\[
+\text{knowledge update} \rightarrow \text{changed choice or consequence}
+\]
 
-- preserve character desire, uncertainty, conflict, environment, and consequence;
-- let exposition enter at the point of need, not at the first point it could be mentioned;
-- keep a stable concrete object while the explanation becomes more precise;
-- prefer visible inference over authority phrases such as “obviously” or “as everyone knows”;
-- allow characters to be partially wrong for coherent reasons;
-- let expertise have limits, costs, blind spots, and domain-specific vocabulary;
-- use equations only when the surrounding scene has established what each quantity means and why the relation matters;
-- return from abstraction to a decision, observation, or changed model;
-- avoid summary-shaped prose that merely converts an outline into paragraphs.
+Use the scene engine in [references/scene-fusion.md](references/scene-fusion.md). In compressed form:
 
-Do not turn a mentor character into a mouthpiece that always knows the next textbook paragraph.
+1. Give the viewpoint character a concrete desire under pressure.
+2. Let the character use a coherent but incomplete model.
+3. Make that model produce a prediction, decision, or failed action.
+4. Let the world return observable evidence.
+5. Introduce the smallest tool that can distinguish the live possibilities.
+6. Force a choice that uses the new model.
+7. Carry the result into risk, relationship, interpretation, resource, or future obligation.
 
-## Maintain persistent story and learning state
+Do not let a character ask the exact question needed by the syllabus unless that question was earned by prior action and evidence. Prefer experiments, measurements, code, design constraints, arguments, archival evidence, physical behavior, and costly decisions over mentor monologues.
 
-After an accepted chapter, update only facts supported by the manuscript.
+Reject a scene when:
 
-Track at least:
+- removing the knowledge leaves the same story outcome;
+- removing the story pressure leaves the same explanation;
+- another character could replace the viewpoint character without changing language or reasoning;
+- the scene ends with comprehension but no altered action, relationship, or future debt.
 
-- established world facts;
-- character state and relationships;
-- object/location state when consequential;
-- promises, mysteries, and foreshadowing;
-- technical facts established in-world;
-- concepts exposed or operationalized;
-- representations and notation already licensed;
-- misconceptions raised and whether they were repaired;
-- unresolved technical or pedagogical debt.
+## Draft from character attention, not from the outline
 
-Use the expected reader-state ladder only as a planning shorthand:
+Before prose, create a compact scene packet:
 
 ```text
-unseen -> exposed -> intuitive -> operational -> formal -> transfer-ready
+POV and attention bias
+immediate want
+opposition
+relationship subtext
+current model
+predicted action
+observable evidence
+decision hinge
+consequence
+voice fingerprint
+sensory and object anchors
+what must remain unsaid
 ```
 
-Do not advance a concept merely because it appeared in prose. `operational` requires the manuscript to have shown the idea being used; `formal` requires the formal structure to be licensed; `transfer-ready` requires at least one materially different context or challenge in the manuscript.
+Use [references/character-simulation.md](references/character-simulation.md) to pressure-test likely behavior. Use [references/fiction-craft.md](references/fiction-craft.md) to control point of view, psychic distance, dialogue, rhythm, interiority, and information economy.
 
-The ladder is intentionally conservative and describes what the book has prepared, not what a human reader has proven.
+Do not draft by converting each outline bullet into a paragraph. Do not make every character articulate, cooperative, or emotionally self-aware. Expertise may be partial, defensive, expensive, or socially constrained.
 
-## Separate creative generation from selection
+## Make cognition active without turning the novel into a workbook
 
-For high-leverage choices such as premise, central conflict, major reveal, character arc, teaching metaphor, or explanation route, do not immediately accept the first plausible idea.
+Use cognitive actions inside story causality:
 
-Generate several meaningfully different candidates. Include at least one plausible low-default option rather than producing cosmetic variants of the same trope. When useful, assign rough probability or typicality estimates to expose the model's default bias.
+- prediction before explanation;
+- discrimination between competing causes;
+- representation mapping;
+- self-explanation through a decision or argument;
+- retrieval after a delay;
+- transfer to a materially different problem.
 
-Then select using explicit criteria:
+Do not append quizzes or summaries unless the requested format wants them. A quiet moment of reflection is not evidence of capability. Repetition with changed numbers is not transfer.
+
+Track expected evidence across dimensions such as recognition, prediction, representation mapping, operation, discrimination, explanation, delayed retrieval, and transfer. See [references/reader-cognition.md](references/reader-cognition.md).
+
+## Treat visuals and data as witnesses
+
+A figure, equation, diagram, simulation, or dataset earns space only when it changes what a character or reader can inspect, predict, distinguish, or decide.
+
+Record:
 
 ```text
-story consequence | conceptual fit | character truth | novelty | continuity cost | teachability
+question | provenance | processing | axes and units | expected observation
+prediction before reveal | inference supported | inference not supported
+story consequence | accessibility and caption
 ```
 
-Do not use diversity as a reason to choose a worse idea. Divergence creates options; judgment selects among them.
+Label real, simulated, schematic, reconstructed, and fictional data explicitly. Never use an attractive figure as decoration or as proof beyond its scope. Follow [references/visual-evidence.md](references/visual-evidence.md).
 
-## Run a multi-lens review before accepting important chapters
+## Separate generation, review, and canonization
 
-Treat the following as distinct review lenses, even when one model performs all of them sequentially:
+Do not let the writer self-certify a chapter.
 
-### 1. Technical auditor
+Use information-isolated packages:
 
-Check claims, equations, causal mechanisms, units, assumptions, edge cases, and uncertainty. Distinguish theorem, model, analogy, empirical fact, convention, and speculation.
+- **writer**: chapter hypothesis, scene packets, compact canon, required sources;
+- **technical auditor**: prose, claims, equations, data provenance, source package;
+- **pedagogy auditor**: prose, entry reader evidence, concept graph;
+- **story critic**: prose, prior story only, no teaching objectives;
+- **first-time reader**: readable manuscript up to the current point, no outline, story bible, chapter contract, or intended lesson;
+- **editor**: prose and all reports;
+- **chronicler**: accepted prose and final decisions only.
 
-### 2. Pedagogy auditor
+The same model may execute roles sequentially, but shared-model reviews are correlated evidence. Never call them independent verification. Preserve the information boundaries even in solo execution.
 
-Check prerequisite violations, unexplained representation changes, hidden algebra, overloaded working memory, false mastery, and whether the new idea repairs a need the reader can perceive.
+Use severity and repair rules from [references/audit-protocol.md](references/audit-protocol.md). Prefer revisions that repair several lenses through one causal change. Replacing a lecture with a failed measurement may simultaneously restore agency, necessity, evidence, and tension.
 
-### 3. Continuity auditor
+## Update state only after acceptance
 
-Check character knowledge, chronology, world rules, object state, prior technical claims, terminology, promises, and whether a later chapter accidentally leaks information backward.
+After an accepted chapter:
 
-### 4. Story critic
+1. update character and world continuity;
+2. update promises and unresolved questions;
+3. record technical claims and source status;
+4. update expected reader evidence and summary state;
+5. schedule delayed retrieval or transfer where needed;
+6. update visual/data provenance;
+7. run deterministic validation when available.
 
-Check desire, stakes, causality, scene turns, character agency, specificity, rhythm, emotional consequence, and whether teaching material has flattened the scene.
+Never advance a concept because it was named, explained, or repeated by a character. Never rewrite old canon silently to accommodate a new chapter.
 
-### 5. First-time reader simulator
+## Evaluate real outputs, not only rules
 
-Simulate local reading experience without silently consulting future explanations. Mark where curiosity rises, where the reader predicts incorrectly for a useful reason, where comprehension breaks, and where exposition feels compulsory rather than desired.
+When changing this Skill, compare at least:
 
-### 6. Editor
+```text
+no Skill baseline
+current released Skill
+candidate Skill
+```
 
-Synthesize disagreements. Rank problems by damage rather than by ease of fixing. Prefer revisions that solve multiple lenses at once.
+Use identical briefs, fixed source material, multiple runs where budget permits, hidden labels, randomized A/B order, hard validity gates, pairwise reader preference, and a separate transfer task. Read [references/evaluation-rubric.md](references/evaluation-rubric.md).
 
-### 7. Chronicler
+A regression suite proves only that named contracts still hold. It does not prove that the candidate writes better fiction.
 
-Only after the revision is accepted, extract new canon and expected-reader-state changes into the project ledgers.
-
-Do not let the writer self-certify the chapter by collapsing every lens into one vague “looks good” pass.
-
-Read [references/audit-protocol.md](references/audit-protocol.md) for severity rules and conflict handling.
-
-## Use deterministic checks where semantics allow them
-
-Some failures can be checked mechanically even though prose quality cannot.
-
-When the project follows the reference layout and a Python runtime is available, run:
+Use:
 
 ```bash
 python3 scripts/validate_project.py /path/to/project
+python3 scripts/prepare_blind_eval.py \
+  --baseline /path/to/baseline \
+  --candidate /path/to/candidate \
+  --output /path/to/blind-eval \
+  --seed 2026
 ```
 
-Use the validator for structural integrity, duplicate concept ids, missing prerequisites, dependency cycles, unknown reader-state concepts, and malformed tracking files. Treat a passing validator as necessary evidence only for those properties. It does not establish technical truth, pedagogical quality, or literary quality.
+Treat passing scripts as evidence only for the properties they check.
 
-## Reconstruct existing novels before continuing them
+## Import existing manuscripts conservatively
 
-When continuing or importing an existing manuscript:
+Before continuing an imported work:
 
-1. read enough text to identify the actual voice and narrative contract;
-2. reconstruct the story bible and current continuity state;
-3. extract concepts already used and the prerequisite assumptions the prose made;
-4. distinguish what was merely mentioned from what was operationalized;
-5. identify unresolved promises, misconceptions, and knowledge debt;
-6. only then outline the next chapter.
+1. read enough finished prose to identify the actual voice and story contract;
+2. reconstruct characters, continuity, promises, and knowledge state;
+3. distinguish concepts named, intuited, operated, formalized, retrieved, and transferred;
+4. identify source, visual, and pedagogical debt;
+5. mark conflicts between old outlines and finished prose;
+6. draft only after the reconstructed state is coherent.
 
-Do not infer character or reader state from an outline if finished prose contradicts it.
+Finished prose outranks an obsolete outline.
 
-## Periodically run global audits
+## Stop at an evidence-calibrated boundary
 
-Local chapter quality can hide book-level failure. At meaningful milestones, inspect:
-
-- concept coverage and dependency order;
-- forgotten concepts that never became usable;
-- concepts used before they were licensed;
-- repeated explanation with no increase in capability;
-- long stretches where story and learning goals cease to interact;
-- character arcs distorted solely to deliver curriculum;
-- unresolved promises and continuity debt;
-- pacing concentration, such as every technical insight arriving in mentor dialogue;
-- whether the final capability promised by the book is actually built by prior chapters.
-
-A concept map with every node “covered” is not enough. Coverage without use is exposure, not learning design.
-
-## Protect prose from common LLM defaults
-
-Revise when prose shows persistent symptoms such as:
-
-- every paragraph having the same cadence;
-- excessive throat-clearing or explanatory signposting;
-- generic sensory detail with no scene function;
-- dialogue that alternates perfectly between question and lecture;
-- characters naming their emotions instead of behaving through them;
-- repeated rhetorical contrast patterns;
-- forced profundity at chapter endings;
-- summary sentences that explain the meaning of a scene the scene already conveyed;
-- cliffhangers added mechanically to every chapter;
-- technically correct but interchangeable language that erases voice.
-
-Do not blindly ban a phrase or construction. Diagnose repetition, lack of intention, or lack of character specificity.
-
-## Keep source and fiction boundaries visible
-
-For nonfictional knowledge embedded in fiction:
-
-- maintain a source policy outside the prose when rigor matters;
-- never fabricate citations, historical quotations, measurements, papers, standards, or named experts;
-- label invented technologies, institutions, datasets, and events as fictional in project notes when confusion is plausible;
-- for disputed topics, represent uncertainty rather than laundering one interpretation into fact;
-- distinguish deliberate simplification from falsehood.
-
-A fictional character may believe something false. The manuscript architecture must know whether the statement is character belief, unresolved hypothesis, or authorial fact.
-
-## Choose the right stopping condition
-
-A learning novel is ready for delivery only when the requested scope is complete and the relevant audits have been performed.
-
-For a chapter, finish with:
+For a chapter, deliver:
 
 ```text
 accepted prose
-+ continuity/state update
-+ unresolved debt worth carrying forward
+continuity and reader-evidence update
+source and visual status
+unresolved debt worth carrying forward
 ```
 
-For a full book, finish with:
+For a book, require:
 
 ```text
 story closure
-+ knowledge-goal coverage
-+ transfer opportunities
-+ global continuity audit
-+ technical/pedagogical uncertainty report
+knowledge-goal coverage
+delayed retrieval and transfer opportunities
+global continuity audit
+technical and source uncertainty report
+blind-reader evidence when available
 ```
 
-Do not append quizzes or textbook summaries unless the requested format wants them. Learning should primarily emerge from the story; optional exercises, appendices, diagrams, or notes may reinforce it without rescuing a manuscript that failed to teach.
-
-## Check before accepting a chapter
-
-Ask internally:
-
-- Would the scene still matter if the teaching paragraph vanished?
-- Would the concept still feel necessary if the story stakes vanished?
-- Is the reader being asked to use anything the manuscript has not licensed?
-- Did the current model get a fair chance to make a prediction before correction?
-- Is the smallest useful new tool introduced, or did I dump the whole taxonomy?
-- Can I state the exit capability as an observable use?
-- Did abstraction return to consequence?
-- Did the character learn in a way consistent with that character's prior knowledge?
-- Did any fact, object, relationship, terminology, or promise silently change?
-- Did the first-time reader simulator have to borrow future knowledge to understand the scene?
-- Are any claims still waiting for source verification?
-- Did the chronicler update state only after the chapter was accepted?
-
-Read [references/evaluation-cases.md](references/evaluation-cases.md) when modifying this Skill or testing whether a new behavior preserves its contract.
+For an audit, diagnose the requested scope and stop. For an evaluation, report wins, losses, ties, invalid outputs, uncertainty, and the next highest-information change. Do not polish a failed architecture.
