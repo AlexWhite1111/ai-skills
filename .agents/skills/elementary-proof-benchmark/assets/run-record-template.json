@@ -1,0 +1,67 @@
+{
+  "benchmark": "elementary-proof-benchmark",
+  "benchmark_version": "0.1.0",
+  "rubric_version": "strict-proof-v1",
+  "item_id": "",
+  "item_version_or_hash": "",
+  "split": "private-test",
+  "model": {
+    "provider": "",
+    "name": "",
+    "snapshot_or_release": "",
+    "reasoning_setting": ""
+  },
+  "run": {
+    "started_at": "",
+    "access_mode": "blind-proof",
+    "web_allowed": false,
+    "tools_allowed": [],
+    "time_budget_seconds": null,
+    "token_budget": null,
+    "retry_budget": 0,
+    "exact_prompt": ""
+  },
+  "initial": {
+    "raw_response": "",
+    "answer_score": null,
+    "proof_score": null,
+    "strict_pass": false,
+    "critical_defects": [],
+    "major_defects": [],
+    "failure_labels": []
+  },
+  "attacks": [
+    {
+      "attack_text": "",
+      "targeted_dependency": "",
+      "response": "",
+      "repair_score": null,
+      "remaining_defects": []
+    }
+  ],
+  "final": {
+    "raw_response": "",
+    "answer_score": null,
+    "proof_score": null,
+    "repair_score": null,
+    "strict_pass": false,
+    "critical_defects": [],
+    "major_defects": [],
+    "failure_labels": []
+  },
+  "provenance": {
+    "web_search_used": false,
+    "sources_used": [],
+    "prior_exposure_suspected": false,
+    "grader": "",
+    "verification_level": []
+  },
+  "cost_and_latency": {
+    "latency_seconds": null,
+    "input_tokens": null,
+    "output_tokens": null,
+    "estimated_cost": null,
+    "currency": ""
+  },
+  "notes": ""
+}
