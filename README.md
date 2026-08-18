@@ -9,6 +9,7 @@
 | [Narrative Tutor](.agents/skills/narrative-tutor/README.zh-CN.md) | `$narrative-tutor` | 从学习者当前模型出发，用具体对象、认知缺口、必要工具和边界组织复杂概念讲解。 |
 | [Learning Novel Engine](.agents/skills/learning-novel-engine/README.zh-CN.md) | `$learning-novel-engine` | 把真实知识、长篇剧情、知识依赖、预期读者状态和多镜头审计组织成可持续推进的学习小说。 |
 | [Research Orchestrator](.agents/skills/research-orchestrator/README.zh-CN.md) | `$research-orchestrator` | 对困难证明、数学物理建模、因果研究、工程设计和复杂排障进行多路线搜索与敌对审计。 |
+| [Elementary Proof Benchmark](.agents/skills/elementary-proof-benchmark/README.zh-CN.md) | `$elementary-proof-benchmark` | 设计、运行并审计低知识门槛、高组合推理深度的数学证明 benchmark，区分答案命中、证明闭合与敌对修复能力。 |
 
 个人学习状态、掌握度、复习计划和多设备同步不放在这里。它们由独立的私有 [`LearningOS`](https://github.com/AlexWhite1111/LearningOS) 仓库及其 `learningos-manager` Skill 管理。
 
@@ -31,11 +32,17 @@ ai-skills/
         │   ├── agents/
         │   ├── references/
         │   └── scripts/
-        └── research-orchestrator/
+        ├── research-orchestrator/
+        │   ├── SKILL.md
+        │   ├── agents/
+        │   ├── assets/
+        │   └── references/
+        └── elementary-proof-benchmark/
             ├── SKILL.md
             ├── agents/
             ├── assets/
-            └── references/
+            ├── references/
+            └── scripts/
 ```
 
 每个 Skill 的 `SKILL.md` 是入口。它引用的脚本、模板和参考资料应保留在同一个 Skill 目录内，避免依赖仓库外的隐式文件。
@@ -55,6 +62,7 @@ mkdir -p ~/.codex/skills
 cp -R ai-skills/.agents/skills/narrative-tutor ~/.codex/skills/
 cp -R ai-skills/.agents/skills/learning-novel-engine ~/.codex/skills/
 cp -R ai-skills/.agents/skills/research-orchestrator ~/.codex/skills/
+cp -R ai-skills/.agents/skills/elementary-proof-benchmark ~/.codex/skills/
 ```
 
 也可以只复制需要的一个目录。更新时重新拉取仓库，再覆盖对应 Skill 目录即可。
@@ -73,6 +81,10 @@ cp -R ai-skills/.agents/skills/research-orchestrator ~/.codex/skills/
 使用 $research-orchestrator 研究这个问题。隔离观察、假设、假说和验证，维持真正不同的路线，并在接受候选结果前进行敌对审计。
 ```
 
+```text
+使用 $elementary-proof-benchmark 设计并盲测一组基础知识可读、但需要多个独立证明锁才能闭合的新题。固定模型版本、工具权限和预算，分别记录答案分、严格证明分与敌对修复结果。
+```
+
 ## 设计边界
 
 - Skill 负责可复用的思考与工作方法。
@@ -81,5 +93,6 @@ cp -R ai-skills/.agents/skills/research-orchestrator ~/.codex/skills/
 - 个人状态、公司资料、密钥、客户数据和私有语料不得进入本公开仓库。
 - “预期读者状态”只描述书稿已经为读者准备了哪些理解条件，不等于任何真实读者的个人掌握度。
 - 同一模型的多次赞同不等于独立验证，有限计算也不自动构成普适证明。
+- 公开 benchmark 开发题只能用于流程校准；无污染正式比较必须使用冻结的私有题或即时 live 题。
 
 维护规则见 [`AGENTS.md`](AGENTS.md)，机器可读索引见 [`MANIFEST.json`](MANIFEST.json)。

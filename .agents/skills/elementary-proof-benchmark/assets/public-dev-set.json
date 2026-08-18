@@ -1,0 +1,97 @@
+{
+  "benchmark": "elementary-proof-benchmark",
+  "version": "0.1.0",
+  "split": "public-dev",
+  "warning": "Public development items are exposed and are not eligible for contamination-resistant leaderboard scores.",
+  "items": [
+    {
+      "id": "EPB-DEV-001",
+      "title_zh": "七个实数的矩与极差",
+      "role": "proof-integrity-challenge",
+      "split": "public-dev",
+      "release_date": "2026-08-18",
+      "official_score_eligible": false,
+      "status": "reference-proof-self-checked-and-adversarially-audited",
+      "tool_policy": "blind-proof",
+      "prerequisites": [
+        "实数",
+        "平方与立方",
+        "柯西不等式",
+        "最大值与最小值"
+      ],
+      "prompt_zh": "设 x_1,x_2,\\ldots,x_7 是七个实数，满足 \\(\\sum_{i=1}^7 x_i=0\\) 以及 \\(\\sum_{i=1}^7 x_i^3=0\\)。记 \\(R=\\max_i x_i-\\min_i x_i\\)。求最小的实数 \\(C\\)，使得恒有 \\(\\sum_{i=1}^7 x_i^2\\le C R^2\\)，并确定等号成立的全部情形。",
+      "expected_result_zh": "C=3/2。等号当且仅当七个数在任意重排下为 {-t,-t,-t,0,t,t,t}，其中 t>=0。",
+      "mechanism_families": [
+        "把正数与负数绝对值分组，使一阶矩与三阶矩分别相等",
+        "利用七个数迫使正负两侧至少一侧至多有三个非零项",
+        "用柯西不等式桥接一阶、二阶、三阶矩",
+        "用正负两侧最大值把三阶矩接到极差"
+      ],
+      "known_failure_modes": [
+        "从 KKT 得到内部至多两个不同取值，却误写成至多一个",
+        "只枚举三值分布，跳过真实存在的四值分布",
+        "用“矩理论”“方差耗散”代替核心不等式",
+        "给出正确常数但没有封闭等号条件"
+      ],
+      "reference_solution_anchor": "EPB-DEV-001"
+    },
+    {
+      "id": "EPB-CAL-001",
+      "title_zh": "成对步长蚱蜢",
+      "role": "representation-calibration",
+      "split": "public-dev",
+      "release_date": "2026-08-18",
+      "official_score_eligible": false,
+      "status": "reference-proof-self-checked",
+      "tool_policy": "blind-proof",
+      "prerequisites": [
+        "整数奇偶性",
+        "平方恒等式",
+        "构造"
+      ],
+      "prompt_zh": "一只蚱蜢从数轴原点出发，共跳 2m 次。对每个 j=1,2,\\ldots,m，它恰好向右跳一次 j 个单位、向左跳一次 j 个单位，顺序任意。第 k 次后位置为 x_k。求 \\(\\sum_{k=1}^{2m-1}x_k^2\\) 的最小值，并对所有正整数 m 证明。",
+      "expected_result_zh": "最小值为 (1/4)[m(m+1)(2m+1)/3 + m]（m 偶）或 (1/4)[m(m+1)(2m+1)/3 + m+1]（m 奇），等价于 ceil((m(m+1)(2m+1)+3m)/12)。",
+      "mechanism_families": [
+        "位移与相邻位置和的平方恒等式",
+        "奇位移迫使相邻位置和为非零奇数",
+        "反对称位移序列同时实现所有逐项下界"
+      ],
+      "known_failure_modes": [
+        "只给下界不构造取等顺序",
+        "忽略首尾位置导致求和系数错误",
+        "构造包含重复符号或漏掉某个正负步长"
+      ],
+      "reference_solution_anchor": "EPB-CAL-001"
+    },
+    {
+      "id": "EPB-CAL-002",
+      "title_zh": "嵌套下标排列",
+      "role": "representation-calibration",
+      "split": "public-dev",
+      "release_date": "2026-08-18",
+      "official_score_eligible": false,
+      "status": "reference-proof-self-checked",
+      "tool_policy": "blind-proof",
+      "prerequisites": [
+        "排列",
+        "循环",
+        "逆序对",
+        "基本计数"
+      ],
+      "prompt_zh": "设 a_1,a_2,\\ldots,a_n 是 1,2,\\ldots,n 的一个排列，且对每个 i 都有 \\(a_{a_i}=n+1-i\\)。(1) 哪些 n 存在这样的排列？(2) 任意满足条件的排列有多少个逆序对？(3) 对每个允许的 n，一共有多少个这样的排列？",
+      "expected_result_zh": "存在当且仅当 n≡0 或 1 (mod 4)。逆序对数恒为 n(n-1)/4。若 n=4k 或 4k+1，排列总数均为 (2k)!/k!。",
+      "mechanism_families": [
+        "把条件压缩为一个排列的平方等于翻转排列",
+        "四循环平方产生一对二循环",
+        "每个数值对恰在排列或其逆中贡献一个逆序",
+        "二循环配对与每对的两个四循环平方根"
+      ],
+      "known_failure_modes": [
+        "只证明必要条件不构造平方根",
+        "逆序互补论证混淆位置对与数值对",
+        "配对计数忘记每对二循环有两个四循环根"
+      ],
+      "reference_solution_anchor": "EPB-CAL-002"
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "name": "ai-skills",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "repository_role": "public reusable AI capability library",
   "skills_root": ".agents/skills",
   "skills": [
@@ -21,6 +21,12 @@
       "entry": ".agents/skills/research-orchestrator/SKILL.md",
       "agent_metadata": ".agents/skills/research-orchestrator/agents/openai.yaml",
       "purpose": "Run diverse research routes, explicit gap tracking, falsification, and adversarial audit."
+    },
+    {
+      "name": "elementary-proof-benchmark",
+      "entry": ".agents/skills/elementary-proof-benchmark/SKILL.md",
+      "agent_metadata": ".agents/skills/elementary-proof-benchmark/agents/openai.yaml",
+      "purpose": "Design, run, and audit contamination-aware elementary mathematics proof benchmarks that separate answer discovery, proof closure, and adversarial repair."
     }
   ],
   "excluded_domains": [
