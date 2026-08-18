@@ -1,0 +1,4 @@
+interface:
+  display_name: "Elementary Proof Benchmark"
+  short_description: "Design and audit low-prerequisite proof benchmarks"
+  default_prompt: "Use $elementary-proof-benchmark to design or run a contamination-aware elementary mathematics proof evaluation. Freeze the contract, separate answer discovery from proof closure, preserve exact access conditions, and adversarially audit every claimed proof before assigning a strict pass."
